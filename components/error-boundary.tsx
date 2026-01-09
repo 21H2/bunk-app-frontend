@@ -1,5 +1,5 @@
-import { Component, ReactNode } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Component, ReactNode } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 /** How many times the boundary will call `onError` before giving up. */
 const MAX_RETRIES = 3;
@@ -40,7 +40,6 @@ class CallbackErrorBoundary extends Component<Props, State> {
       return;
     }
 
-
     (async () => {
       try {
         await onError();
@@ -49,7 +48,7 @@ class CallbackErrorBoundary extends Component<Props, State> {
         console.error(error);
       }
 
-      this.setState(prev => ({
+      this.setState((prev) => ({
         hasError: true,
         attempts: prev.attempts + 1,
       }));
@@ -65,12 +64,11 @@ class CallbackErrorBoundary extends Component<Props, State> {
       return (
         <View style={styles.container}>
           <Text style={styles.text}>
-            Duolicious crashed so hard we don't even have a pretty error
-            message.
-            {'\n\n'}
+            Bunk crashed so hard we don't even have a pretty error message.
+            {"\n\n"}
             Try clearing your cache/storage or reinstalling the app.
-            {'\n\n'}
-            If this error persists, contact: support@duolicious.app
+            {"\n\n"}
+            If this error persists, contact: support@bunk-app.in
           </Text>
         </View>
       );
@@ -83,25 +81,24 @@ class CallbackErrorBoundary extends Component<Props, State> {
 const NoOpErrorBoundary = ({ children, ..._ }) => children;
 
 // Disable error boundary in dev env so it doesn't keep logging us out
-const ErrorBoundary = process.env.NODE_ENV === 'development'
-  ? NoOpErrorBoundary
-  : CallbackErrorBoundary;
+const ErrorBoundary =
+  process.env.NODE_ENV === "development"
+    ? NoOpErrorBoundary
+    : CallbackErrorBoundary;
 
 /* Example React‑Native styles; replace with your actual StyleSheet */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 26,
   },
   text: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
-    color: 'red',
+    color: "red",
   },
 });
 
-export {
-  ErrorBoundary,
-}
+export { ErrorBoundary };

@@ -1,28 +1,26 @@
-import { ExpoConfig } from 'expo/config';
+import { ExpoConfig } from "expo/config";
 
 // In SDK 46 and lower, use the following import instead:
 // import { ExpoConfig } from '@expo/config-types';
 
 const config: ExpoConfig = {
-  name: 'Duolicious',
-  slug: 'duolicious',
+  name: "Bunk",
+  slug: "bunk",
   version: "32.0.0",
   orientation: "portrait",
-  icon: './assets/icon.png',
+  icon: "./assets/icon.png",
   newArchEnabled: true,
   updates: {
-    fallbackToCacheTimeout: 0
+    fallbackToCacheTimeout: 0,
   },
-  assetBundlePatterns: [
-    "**/*"
-  ],
+  assetBundlePatterns: ["**/*"],
   androidNavigationBar: {
     barStyle: "dark-content",
-    backgroundColor: '#ffffff'
+    backgroundColor: "#F4AFC1",
   },
   extra: {
     eas: {
-      projectId: "a756e088-c07a-4034-b9c5-51f50139ac21"
+      projectId: "a756e088-c07a-4034-b9c5-51f50139ac21",
     },
     apiUrl: process.env.DUO_API_URL,
     chatUrl: process.env.DUO_CHAT_URL,
@@ -37,25 +35,27 @@ const config: ExpoConfig = {
     notificationSoundUrl: process.env.NOTIFICATION_SOUND_URL,
   },
   web: {
-    favicon: "./assets/favicon.png"
+    favicon: "./assets/favicon.png",
   },
   ios: {
-    bundleIdentifier: "app.duolicious",
+    bundleIdentifier: "app.bunk",
     supportsTablet: false,
-    associatedDomains: ["applinks:get.duolicious.app"],
-    appStoreUrl: "https://apps.apple.com/us/app/duolicious-dating-app/id6499066647",
+    associatedDomains: ["applinks:get.bunk-app.in"],
+    appStoreUrl: "https://apps.apple.com/us/app/bunk-app/id6499066647",
     infoPlist: {
-      NSMicrophoneUsageDescription: "This app uses the microphone to capture audio for updating and sharing on your profile.",
-      NSCameraUsageDescription: "This app uses the camera to capture images for verifying your profile.",
-      ITSAppUsesNonExemptEncryption: false
+      NSMicrophoneUsageDescription:
+        "This app uses the microphone to capture audio for updating and sharing on your profile.",
+      NSCameraUsageDescription:
+        "This app uses the camera to capture images for verifying your profile.",
+      ITSAppUsesNonExemptEncryption: false,
     },
   },
   android: {
     googleServicesFile: "./google-services.json",
-    package: "app.duolicious",
+    package: "app.bunk",
     adaptiveIcon: {
       foregroundImage: "./assets/adaptive-icon.png",
-      backgroundColor: "#7700ff"
+      backgroundColor: "#F4AFC1",
     },
     intentFilters: [
       {
@@ -64,16 +64,16 @@ const config: ExpoConfig = {
         data: [
           {
             scheme: "https",
-            host: "get.duolicious.app"
-          }
+            host: "get.bunk-app.in",
+          },
         ],
-        category: ["BROWSABLE", "DEFAULT"]
-      }
+        category: ["BROWSABLE", "DEFAULT"],
+      },
     ],
-    playStoreUrl: "https://play.google.com/store/apps/details?id=app.duolicious",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=app.bunk",
     blockedPermissions: [
-      'android.permission.READ_MEDIA_IMAGES',
-      'android.permission.READ_MEDIA_VIDEO',
+      "android.permission.READ_MEDIA_IMAGES",
+      "android.permission.READ_MEDIA_VIDEO",
     ],
   },
   plugins: [
@@ -82,21 +82,19 @@ const config: ExpoConfig = {
     [
       "expo-notifications",
       {
-        "icon": "./assets/notification.png",
-        "color": "#7700ff",
-        "sounds": [
-          "./assets/audio/notification.mp3"
-        ]
-      }
+        icon: "./assets/notification.png",
+        color: "#F4AFC1",
+        sounds: ["./assets/audio/notification.mp3"],
+      },
     ],
     [
       "expo-splash-screen",
       {
-        backgroundColor: "#7700ff",
+        backgroundColor: "#F4AFC1",
         image: "./assets/splash.png",
         imageWidth: 300,
-      }
-    ]
+      },
+    ],
   ],
 };
 

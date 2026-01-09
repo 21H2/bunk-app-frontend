@@ -758,7 +758,7 @@ const ConversationScreen = ({navigation, route}) => {
                   marginRight: '10%',
                 }}
               >
-                Intros on Duolicious have to be totally unique! Try
+                Intros on Bunk have to be totally unique! Try
                 asking {name} about something interesting on their profile...
               </DefaultText>
             </>

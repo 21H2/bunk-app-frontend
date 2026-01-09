@@ -6,25 +6,25 @@ import {
   View,
   StyleProp,
   TextStyle,
-} from 'react-native';
+} from "react-native";
 import {
   createElement,
   memo,
   useCallback,
   useLayoutEffect,
   useState,
-} from 'react';
-import { StatelessCheckBox } from './check-box';
-import { BaseQuizCard } from './base-quiz-card';
-import { DefaultText } from './default-text';
-import { LinearGradient } from 'expo-linear-gradient';
+} from "react";
+import { StatelessCheckBox } from "./check-box";
+import { BaseQuizCard } from "./base-quiz-card";
+import { DefaultText } from "./default-text";
+import { LinearGradient } from "expo-linear-gradient";
 import { X, Check, FastForward } from "react-native-feather";
-import { Skeleton } from './skeleton';
-import { japi } from '../api/api';
-import { quizQueue } from '../api/queue';
-import { IndeterminateProgressBar } from './indeterminate-progress-bar';
-import { Logo14 } from './logo';
-import { useAppTheme } from '../app-theme/app-theme';
+import { Skeleton } from "./skeleton";
+import { japi } from "../api/api";
+import { quizQueue } from "../api/queue";
+import { IndeterminateProgressBar } from "./indeterminate-progress-bar";
+import { Logo14 } from "./logo";
+import { useAppTheme } from "../app-theme/app-theme";
 
 const cardBorders = {
   borderRadius: 10,
@@ -45,95 +45,87 @@ const cardPadding = {
 };
 
 type CardState = {
-  answer: boolean | null,
-  public_: boolean,
-}
+  answer: boolean | null;
+  public_: boolean;
+};
 
-const LeftComponent = ({percentage}) => {
+const LeftComponent = ({ percentage }) => {
   return (
     <View
       style={{
-        position: 'absolute',
+        position: "absolute",
         right: 0,
-        top: '20%',
-        backgroundColor: '#70f',
+        top: "20%",
+        backgroundColor: "#70f",
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 20,
         paddingRight: 20,
         borderRadius: 30,
-        alignItems: 'center',
+        alignItems: "center",
       }}
     >
       <DefaultText
         style={{
           fontSize: 20,
-          fontFamily: 'TruenoBold',
-          color: 'white',
+          fontFamily: "TruenoBold",
+          color: "white",
         }}
       >
         {percentage}% said
       </DefaultText>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         <DefaultText
           style={{
             fontSize: 50,
-            fontFamily: 'TruenoBold',
-            color: 'white',
+            fontFamily: "TruenoBold",
+            color: "white",
           }}
         >
-          NO{' '}
+          NO{" "}
         </DefaultText>
-        <X
-          stroke="white"
-          strokeWidth={4}
-          width={40}
-          height={40}
-        />
+        <X stroke="white" strokeWidth={4} width={40} height={40} />
       </View>
     </View>
   );
 };
 
-const RightComponent = ({percentage}) => {
+const RightComponent = ({ percentage }) => {
   return (
     <View
       style={{
-        position: 'absolute',
+        position: "absolute",
         left: 0,
-        top: '20%',
-        backgroundColor: '#70f',
+        top: "20%",
+        backgroundColor: "#FF6190",
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 20,
         paddingRight: 20,
         borderRadius: 30,
-        alignItems: 'center',
+        alignItems: "center",
       }}
     >
       <DefaultText
         style={{
           fontSize: 20,
-          fontFamily: 'TruenoBold',
-          color: 'white',
+          fontFamily: "TruenoBold",
+          color: "white",
         }}
       >
         {percentage}% said
       </DefaultText>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <DefaultText style={{
-          fontSize: 50,
-          fontFamily: 'TruenoBold',
-          color: 'white',
-        }}>
-          YES{' '}
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <DefaultText
+          style={{
+            fontSize: 50,
+            fontFamily: "TruenoBold",
+            color: "white",
+          }}
+        >
+          YES{" "}
         </DefaultText>
-        <Check
-          stroke="white"
-          strokeWidth={4}
-          width={40}
-          height={40}
-        />
+        <Check stroke="white" strokeWidth={4} width={40} height={40} />
       </View>
     </View>
   );
@@ -143,44 +135,36 @@ const DownComponent = memo(() => {
   return (
     <View
       style={{
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+        alignItems: "center",
+        justifyContent: "flex-start",
       }}
     >
       <View
         style={{
-          backgroundColor: 'black',
+          backgroundColor: "black",
           paddingLeft: 20,
           paddingRight: 20,
-          alignItems: 'center',
-          flexDirection: 'row',
+          alignItems: "center",
+          flexDirection: "row",
           borderRadius: 999,
         }}
       >
-        <DefaultText style={{
-          fontSize: 50,
-          fontFamily: 'TruenoBold',
-          color: 'white',
-        }}>
-          SKIP{' '}
+        <DefaultText
+          style={{
+            fontSize: 50,
+            fontFamily: "TruenoBold",
+            color: "white",
+          }}
+        >
+          SKIP{" "}
         </DefaultText>
-        <FastForward
-          stroke="white"
-          strokeWidth={4}
-          width={40}
-          height={40}
-        />
+        <FastForward stroke="white" strokeWidth={4} width={40} height={40} />
       </View>
     </View>
   );
 });
 
-const QuizCard = ({
-  children,
-  noPercentage,
-  yesPercentage,
-  ...props
-}) => {
+const QuizCard = ({ children, noPercentage, yesPercentage, ...props }) => {
   const {
     style,
     innerStyle,
@@ -198,14 +182,14 @@ const QuizCard = ({
     <BaseQuizCard
       ref={innerRef}
       containerStyle={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
+        position: "absolute",
+        width: "100%",
+        height: "100%",
         ...style,
       }}
-      leftComponent={<LeftComponent percentage={noPercentage}/>}
-      rightComponent={<RightComponent percentage={yesPercentage}/>}
-      downComponent={<DownComponent/>}
+      leftComponent={<LeftComponent percentage={noPercentage} />}
+      rightComponent={<RightComponent percentage={yesPercentage} />}
+      downComponent={<DownComponent />}
       swipeThreshold={75}
       {...rest}
     >
@@ -225,7 +209,7 @@ const QuizCard = ({
   );
 };
 
-const NonInteractiveQuizCard = ({children, ...props}) => {
+const NonInteractiveQuizCard = ({ children, ...props }) => {
   const {
     extraChildren,
     containerStyle,
@@ -247,14 +231,14 @@ const NonInteractiveQuizCard = ({children, ...props}) => {
     const defaultFontSize = 26;
 
     const windowArea =
-      Math.min(600, Dimensions.get('window').width) *
-      Dimensions.get('window').height;
+      Math.min(600, Dimensions.get("window").width) *
+      Dimensions.get("window").height;
 
     // Window scale factor
     const w1 = Math.min(1, windowArea / 502750 + 250 / 2171);
 
     // Text length scale factor
-    const w2 = Math.min(1, - children.length / 1000 + 12 / 10);
+    const w2 = Math.min(1, -children.length / 1000 + 12 / 10);
 
     const scaledFontSize = Math.round(defaultFontSize * w1 * w2);
 
@@ -272,30 +256,30 @@ const NonInteractiveQuizCard = ({children, ...props}) => {
   return (
     <Animated.View
       style={{
-        display: 'flex',
-        height: '100%',
-        width: '100%',
+        display: "flex",
+        height: "100%",
+        width: "100%",
         ...cardPadding,
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         ...containerStyle,
       }}
     >
       <View
         style={{
-          overflow: 'visible',
+          overflow: "visible",
           flexGrow: 1,
           backgroundColor: appTheme.quizCardBackgroundColor,
           ...cardBorders,
         }}
       >
         <ImageBackground
-          source={require('../assets/background-noise.png')}
+          source={require("../assets/background-noise.png")}
           resizeMode="repeat"
           style={{
-            width: '100%',
-            height: '100%',
+            width: "100%",
+            height: "100%",
             flexGrow: 1,
-            overflow: 'hidden',
+            overflow: "hidden",
             borderRadius: cardBorders.borderRadius,
             ...imageBackgroundStyle,
             ...innerStyle,
@@ -303,26 +287,26 @@ const NonInteractiveQuizCard = ({children, ...props}) => {
         >
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
               paddingTop: 5,
               paddingLeft: 15,
               paddingRight: 12,
-              alignItems: 'center',
+              alignItems: "center",
             }}
           >
-            {questionNumber && topic &&
+            {questionNumber && topic && (
               <DefaultText
                 style={{
                   flex: 1,
                   color: appTheme.quizCardColor,
-                  textAlign: 'left',
+                  textAlign: "left",
                 }}
               >
                 <DefaultText
                   style={{
-                    fontWeight: '600',
+                    fontWeight: "600",
                     color: appTheme.quizCardColor,
                   }}
                 >
@@ -330,26 +314,26 @@ const NonInteractiveQuizCard = ({children, ...props}) => {
                 </DefaultText>
                 {questionNumber} | {topic}
               </DefaultText>
-            }
-            {questionNumber && topic &&
+            )}
+            {questionNumber && topic && (
               <View
                 style={{
                   flex: 1,
-                  flexDirection: 'row',
+                  flexDirection: "row",
                   gap: 3,
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
+                  alignItems: "center",
+                  justifyContent: "flex-end",
                 }}
               >
                 <DefaultText
                   style={{
-                    fontFamily: 'TruenoBold',
+                    fontFamily: "TruenoBold",
                     fontSize: 16,
                     color: appTheme.quizCardColor,
-                    textAlign: 'right',
+                    textAlign: "right",
                   }}
                 >
-                  Duolicious
+                  Bunk
                 </DefaultText>
                 <Logo14
                   size={14 * 2}
@@ -357,96 +341,96 @@ const NonInteractiveQuizCard = ({children, ...props}) => {
                   rectSize={0.3}
                 />
               </View>
-            }
+            )}
           </View>
           <View
             style={{
               margin: 20,
               flexGrow: 1,
-              justifyContent: 'center',
+              justifyContent: "center",
               minWidth: 150,
             }}
           >
             <DefaultText
               style={{
                 fontSize: adjustedFontSize,
-                fontFamily: 'Trueno',
-                textAlign: 'center',
+                fontFamily: "Trueno",
+                textAlign: "center",
               }}
             >
-              {showTutorial && questionNumber === 1 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
+              {showTutorial && questionNumber === 1 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
                   👋 Welcome to Duolicious Q&A, where we pick your brain in the
                   quest to unearth your perfect match! Let's start with an easy
                   one:
-                  {'\n\n'}
+                  {"\n\n"}
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 2 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
+              )}
+              {showTutorial && questionNumber === 2 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
                   Best. Answer. Ever! We'll use that to improve your matches
-                  here{'\u00A0'}☝️, and when you search{'\u00A0'}🔎.
-                  {'\n\n'}
+                  here{"\u00A0"}☝️, and when you search{"\u00A0"}🔎.
+                  {"\n\n"}
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 3 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
+              )}
+              {showTutorial && questionNumber === 3 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
                   You're on a roll! Next question...
-                  {'\n\n'}
+                  {"\n\n"}
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 4 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
+              )}
+              {showTutorial && questionNumber === 4 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
                   Some questions seem pretty silly, but we promise they help us
                   figure out who's right for you. Our smartypants AI told us so.
-                  {'\n\n'}
+                  {"\n\n"}
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 5 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
+              )}
+              {showTutorial && questionNumber === 5 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
                   ...But if a question is too silly (or controversial, or you're
                   just on the fence), then you can always skip by swiping down.
-                  {'\n\n'}
+                  {"\n\n"}
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 6 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
+              )}
+              {showTutorial && questionNumber === 6 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
                   If you've got an extra-spicy hot take, you can also answer
                   privately. Just uncheck "answer publicly". We'll keep your
                   answer hidden, but still use it to sort the folders from the
                   scrunchers.
-                  {'\n\n'}
+                  {"\n\n"}
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 7 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
-                  Looks like you've got the hang of it.  We're gonna zip it and
-                  let you find your match{'\u00A0'}💑. Happy swiping!
-                  {'\n\n'}
+              )}
+              {showTutorial && questionNumber === 7 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
+                  Looks like you've got the hang of it. We're gonna zip it and
+                  let you find your match{"\u00A0"}💑. Happy swiping!
+                  {"\n\n"}
                 </DefaultText>
-              }
+              )}
               {children}
-              {showTutorial && questionNumber === 1 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
-                  {'\n\n'}
+              {showTutorial && questionNumber === 1 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
+                  {"\n\n"}
                   Drag this card left for "no", or right for "yes"
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 2 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
-                  {'\n\n'}
+              )}
+              {showTutorial && questionNumber === 2 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
+                  {"\n\n"}
                   (Left is "no", right is "yes")
                 </DefaultText>
-              }
-              {showTutorial && questionNumber === 3 &&
-                <DefaultText style={{fontSize: adjustedFontSize * 0.8}}>
-                  {'\n\n'}
+              )}
+              {showTutorial && questionNumber === 3 && (
+                <DefaultText style={{ fontSize: adjustedFontSize * 0.8 }}>
+                  {"\n\n"}
                   (As always, 👈 = no, yes = 👉)
                 </DefaultText>
-              }
+              )}
             </DefaultText>
           </View>
-          {showAnswerPubliclyCheckBox &&
+          {showAnswerPubliclyCheckBox && (
             <StatelessCheckBox
               value={answerPubliclyValue}
               labelPosition="left"
@@ -454,32 +438,28 @@ const NonInteractiveQuizCard = ({children, ...props}) => {
                 marginTop: 0,
                 marginBottom: 25,
                 marginRight: 30,
-                alignSelf: 'flex-end',
+                alignSelf: "flex-end",
               }}
               onValueChange={onChangeAnswerPublicly}
             >
               Answer Publicly
             </StatelessCheckBox>
-          }
+          )}
           {extraChildren}
-          {!extraChildren &&
+          {!extraChildren && (
             <LinearGradient
-              locations={[
-                0.0,
-                0.15,
-                1.0,
-              ]}
+              locations={[0.0, 0.15, 1.0]}
               colors={[
-                'transparent',
-                'rgba(0, 0, 0, 0.85)',
-                'rgba(0, 0, 0, 1.0)',
+                "transparent",
+                "rgba(0, 0, 0, 0.85)",
+                "rgba(0, 0, 0, 1.0)",
               ]}
               style={{
-                width: '100%',
+                width: "100%",
                 height: 95,
               }}
             />
-          }
+          )}
         </ImageBackground>
       </View>
     </Animated.View>
@@ -490,77 +470,70 @@ const AnswerIcon = ({
   answer,
   selected,
   enabled,
-  onPress = undefined
+  onPress = undefined,
 }: {
-  answer: string,
-  selected: boolean,
-  enabled: boolean,
-  onPress?: any
+  answer: string;
+  selected: boolean;
+  enabled: boolean;
+  onPress?: any;
 }) => {
   const { appThemeName } = useAppTheme();
 
   const backgroundColor = (() => {
-    if (selected === false) return appThemeName === 'dark' ? 'black' : 'white';
-    if (enabled) return '#70f';
-    return '#cabcff';
+    if (selected === false) return appThemeName === "dark" ? "black" : "white";
+    if (enabled) return "#FF6190";
+    return "#cabcff";
   })();
 
   const checkColor = (() => {
-    if (selected) return 'white';
-    if (enabled) return appThemeName === 'dark' ? 'white' : 'black';
-    return '#bcbcbc';
+    if (selected) return "white";
+    if (enabled) return appThemeName === "dark" ? "white" : "black";
+    return "#bcbcbc";
   })();
 
   return createElement(
     onPress ? Pressable : View,
     {
       style: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         padding: 2,
         backgroundColor: backgroundColor,
-        borderColor: selected === false ? '#bbb' : 'black',
+        borderColor: selected === false ? "#bbb" : "black",
         borderWidth: onPress ? 1 : 0,
         borderRadius: 999,
-        overflow: 'visible',
+        overflow: "visible",
         width: 26,
         height: 26,
       },
       onPress,
     },
     <>
-      {answer === 'yes' ?
-        <Check
-          stroke={checkColor}
-          width={18}
-          height={18}
-          /> :
-        <X
-          stroke={checkColor}
-          width={18}
-          height={18}
-          />
-      }
-    </>
+      {answer === "yes" ? (
+        <Check stroke={checkColor} width={18} height={18} />
+      ) : (
+        <X stroke={checkColor} width={18} height={18} />
+      )}
+    </>,
   );
 };
 
 const AnswerIconGroup = ({
   answer,
   enabled,
-  onPress = undefined
+  onPress = undefined,
 }: {
-  answer: boolean | null,
-  enabled: boolean,
-  onPress?: any,
+  answer: boolean | null;
+  enabled: boolean;
+  onPress?: any;
 }) => {
-  const onPressYes = useCallback(() => onPress && onPress(true),  [onPress]);
-  const onPressNo  = useCallback(() => onPress && onPress(false), [onPress]);
+  const onPressYes = useCallback(() => onPress && onPress(true), [onPress]);
+  const onPressNo = useCallback(() => onPress && onPress(false), [onPress]);
 
   return (
     <View
       style={{
-        flexDirection: 'row',
+        flexDirection: "row",
         gap: 15,
       }}
     >
@@ -605,19 +578,19 @@ const AnsweredQuizCard = ({
   answer2Publicly,
   onStateChange,
 }: {
-  children: any,
-  questionNumber: number
-  topic: string,
-  user1: string,
-  answer1: boolean | null,
-  user2: string,
-  answer2: boolean | null,
-  answer2Publicly: boolean,
-  onStateChange: (state: CardState) => void,
+  children: any;
+  questionNumber: number;
+  topic: string;
+  user1: string;
+  answer1: boolean | null;
+  user2: string;
+  answer2: boolean | null;
+  answer2Publicly: boolean;
+  onStateChange: (state: CardState) => void;
 }) => {
   const [state, setState] = useState<CardState>({
     answer: answer2,
-    public_: answer2Publicly
+    public_: answer2Publicly,
   });
 
   useLayoutEffect(() => {
@@ -625,74 +598,71 @@ const AnsweredQuizCard = ({
   }, [JSON.stringify(state)]);
 
   const textColor = useCallback(() => {
-    if (state.answer === null)
-      return '#666';
+    if (state.answer === null) return "#666";
     if (answer1 === state.answer) {
-      return '#5a5';
+      return "#5a5";
     } else {
-      return '#e57';
+      return "#e57";
     }
   }, [answer1, state.answer])();
 
   const textStyle: StyleProp<TextStyle> = {
-    fontWeight: '500',
+    fontWeight: "500",
     color: textColor,
     maxWidth: 120,
   };
 
-  const onPressAnswerIconGroup = useCallback(async (pressedButton: boolean) => {
-    setState((state: CardState): CardState => {
-      const nextAnswer_ = nextAnswer(state.answer, pressedButton);
+  const onPressAnswerIconGroup = useCallback(
+    async (pressedButton: boolean) => {
+      setState((state: CardState): CardState => {
+        const nextAnswer_ = nextAnswer(state.answer, pressedButton);
 
-      quizQueue.addTask(async () => {
-        await japi(
-          'post',
-          '/answer',
-          {
+        quizQueue.addTask(async () => {
+          await japi("post", "/answer", {
             question_id: questionNumber,
             answer: nextAnswer_,
             public: state.public_,
-          }
-        );
+          });
+        });
+
+        const nextState = {
+          ...state,
+          answer: nextAnswer_,
+        };
+
+        return nextState;
       });
+    },
+    [setState],
+  );
 
-      const nextState = {
-        ...state,
-        answer: nextAnswer_,
-      };
-
-      return nextState;
-    });
-  }, [setState]);
-
-  const onChangeAnswerPublicly = useCallback((public_: boolean) => {
-    setState((state: CardState): CardState => {
-      quizQueue.addTask(async () =>
-        japi(
-          'post',
-          '/answer',
-          {
+  const onChangeAnswerPublicly = useCallback(
+    (public_: boolean) => {
+      setState((state: CardState): CardState => {
+        quizQueue.addTask(async () =>
+          japi("post", "/answer", {
             question_id: questionNumber,
             answer: state.answer,
             public: public_,
-          }
-        )
-      );
+          }),
+        );
 
-      return {
-        ...state,
-        public_: public_,
-      };
-    });
-  }, [setState]);
+        return {
+          ...state,
+          public_: public_,
+        };
+      });
+    },
+    [setState],
+  );
 
   const extraChildren = (
     <View
       style={{
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
         paddingBottom: 20,
         paddingLeft: 20,
         paddingRight: 20,
@@ -700,28 +670,28 @@ const AnsweredQuizCard = ({
     >
       <View
         style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
           marginRight: 30,
         }}
       >
-        <DefaultText style={textStyle} numberOfLines={1} >
+        <DefaultText style={textStyle} numberOfLines={1}>
           {user1}
         </DefaultText>
-        <DefaultText style={[textStyle, { marginRight: 5 }]}>
-          :
-        </DefaultText>
-        <AnswerIconGroup answer={answer1} enabled={false}/>
+        <DefaultText style={[textStyle, { marginRight: 5 }]}>:</DefaultText>
+        <AnswerIconGroup answer={answer1} enabled={false} />
       </View>
       <View
         style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
         }}
       >
-        <DefaultText style={{ fontWeight: '500', marginRight: 5, color: '#666' }}>
+        <DefaultText
+          style={{ fontWeight: "500", marginRight: 5, color: "#666" }}
+        >
           {user2}:
         </DefaultText>
         <AnswerIconGroup
@@ -748,7 +718,7 @@ const AnsweredQuizCard = ({
       innerStyle={{
         flexGrow: undefined,
         height: undefined,
-        width: '100%',
+        width: "100%",
       }}
       maxFontSize={18}
       extraChildren={extraChildren}
@@ -767,10 +737,10 @@ const SearchQuizCard = ({
   onAnswerChange,
 }) => {
   type State = {
-    answer: boolean | null
-    acceptUnanswered: boolean
-    errorMessage?: string
-    loading: boolean
+    answer: boolean | null;
+    acceptUnanswered: boolean;
+    errorMessage?: string;
+    loading: boolean;
   };
 
   const [state, setState] = useState<State>({
@@ -779,96 +749,96 @@ const SearchQuizCard = ({
     loading: false,
   });
 
-  const updateAnswer = useCallback(async (acceptUnanswered?: boolean) => {
-    if (state.loading) {
-      return;
-    };
+  const updateAnswer = useCallback(
+    async (acceptUnanswered?: boolean) => {
+      if (state.loading) {
+        return;
+      }
 
-    setState({
-      ...state,
-      errorMessage: undefined,
-      loading: true,
-    });
+      setState({
+        ...state,
+        errorMessage: undefined,
+        loading: true,
+      });
 
-    const updatedAnswer = (
-      acceptUnanswered === undefined ?
-      nextAnswer(state.answer) :
-      state.answer);
+      const updatedAnswer =
+        acceptUnanswered === undefined
+          ? nextAnswer(state.answer)
+          : state.answer;
 
-    const updatedAcceptUnanswered = (
-      acceptUnanswered === undefined ?
-      state.acceptUnanswered :
-      acceptUnanswered);
+      const updatedAcceptUnanswered =
+        acceptUnanswered === undefined
+          ? state.acceptUnanswered
+          : acceptUnanswered;
 
-    const response = await japi(
-      'post',
-      '/search-filter-answer',
-      {
+      const response = await japi("post", "/search-filter-answer", {
         question_id: questionNumber,
         answer: updatedAnswer,
         accept_unanswered: updatedAcceptUnanswered,
+      });
+
+      const error = response.json?.error;
+      const answers = response.json?.answer;
+
+      if (error) {
+        setState({
+          ...state,
+          errorMessage: error,
+          loading: false,
+        });
+      } else if (answers) {
+        setState({
+          ...state,
+          answer: updatedAnswer,
+          acceptUnanswered: updatedAcceptUnanswered,
+          loading: false,
+        });
+
+        onAnswerChange(answers);
+      } else {
+        throw Error("Unexpected response: " + JSON.stringify(response));
       }
-    );
+    },
+    [state],
+  );
 
-    const error = response.json?.error;
-    const answers = response.json?.answer;
-
-    if (error) {
-      setState({
-        ...state,
-        errorMessage: error,
-        loading: false,
-      });
-    } else if (answers) {
-      setState({
-        ...state,
-        answer: updatedAnswer,
-        acceptUnanswered: updatedAcceptUnanswered,
-        loading: false,
-      });
-
-      onAnswerChange(answers);
-    } else {
-      throw Error('Unexpected response: ' + JSON.stringify(response));
-    }
-  }, [state]);
-
-  const onPressAnswer   = useCallback(() => updateAnswer(), [updateAnswer]);
+  const onPressAnswer = useCallback(() => updateAnswer(), [updateAnswer]);
   const onPressCheckBox = useCallback(updateAnswer, [updateAnswer]);
 
   const extraChildren = (
     <View
       style={{
-        width: '100%',
+        width: "100%",
         paddingLeft: 20,
         paddingRight: 20,
       }}
     >
       <View
         style={{
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          flexWrap: "wrap",
           paddingBottom: 20,
         }}
       >
         <View
           style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
           }}
         >
           <DefaultText
             style={{
-              fontWeight: '500',
-              color: '#666'
+              fontWeight: "500",
+              color: "#666",
             }}
           >
-            Answer: </DefaultText>
+            Answer:{" "}
+          </DefaultText>
           <Pressable onPress={onPressAnswer}>
-            <AnswerIconGroup answer={state.answer} enabled={true}/>
+            <AnswerIconGroup answer={state.answer} enabled={true} />
           </Pressable>
         </View>
         <StatelessCheckBox
@@ -884,25 +854,25 @@ const SearchQuizCard = ({
         >
           <DefaultText
             style={{
-              fontWeight: '500',
-              color: '#666'
+              fontWeight: "500",
+              color: "#666",
             }}
           >
             Accept unanswered
           </DefaultText>
         </StatelessCheckBox>
       </View>
-      {state.errorMessage &&
+      {state.errorMessage && (
         <DefaultText
           style={{
-            color: 'red',
-            alignSelf: 'center',
+            color: "red",
+            alignSelf: "center",
             marginBottom: 20,
           }}
         >
           {state.errorMessage}
         </DefaultText>
-      }
+      )}
       <IndeterminateProgressBar show={state.loading} />
     </View>
   );
@@ -920,7 +890,7 @@ const SearchQuizCard = ({
       innerStyle={{
         flexGrow: undefined,
         height: undefined,
-        width: '100%',
+        width: "100%",
       }}
       fontSize={18}
       extraChildren={extraChildren}
@@ -935,11 +905,11 @@ const SkeletonQuizCard = (props) => {
   return (
     <Animated.View
       style={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
         ...cardPadding,
         ...props.innerStyle,
       }}
@@ -953,11 +923,11 @@ const NoMoreCards = () => {
   return (
     <View
       style={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
         paddingLeft: 10,
         paddingRight: 10,
         paddingTop: 5,
@@ -966,10 +936,10 @@ const NoMoreCards = () => {
     >
       <DefaultText
         style={{
-          fontFamily: 'TruenoBold',
+          fontFamily: "TruenoBold",
           fontSize: 22,
-          textAlign: 'center',
-          padding: '20%',
+          textAlign: "center",
+          padding: "20%",
         }}
       >
         Those are all the questions we’ve got for now
@@ -985,4 +955,4 @@ export {
   QuizCard,
   SearchQuizCard,
   SkeletonQuizCard,
-}
+};

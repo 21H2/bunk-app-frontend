@@ -163,7 +163,7 @@ const UndoNoYesSkip = (props) => {
         className="pressable"
         containerStyle={buttonStyle}
         onPress={onPressNo}
-        backgroundColor="#70f"
+        backgroundColor="#FF6190"
         borderColor="white"
         borderWidth={2}
         extraChildren={
@@ -183,7 +183,7 @@ const UndoNoYesSkip = (props) => {
         className="pressable"
         containerStyle={buttonStyle}
         onPress={onPressYes}
-        backgroundColor="#70f"
+        backgroundColor="#FF6190"
         borderColor="white"
         borderWidth={2}
         extraChildren={

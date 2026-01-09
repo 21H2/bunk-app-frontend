@@ -117,7 +117,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
               style={{
                 ...(secondary ? styles.secondaryLabel : styles.primaryLabel),
                 ...textStyle,
-                color: isSelected ? '#70f' : 'rgb(94, 105, 119)',
+                color: isSelected ? '#FF6190' : 'rgb(94, 105, 119)',
               }}
             >
               {label}
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     backgroundColor: 'rgb(228, 204, 255)',
-    borderColor: '#70f',
+    borderColor: '#FF6190',
     borderWidth: 1,
     borderBottomWidth: 3,
   },

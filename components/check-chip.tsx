@@ -20,11 +20,11 @@ const CheckChip = ({label, ...props}) => {
   const [checked, setChecked] = useState(props.initialCheckedState ?? false);
 
   const checkedContainerStyle = {
-    backgroundColor: 'rgb(228, 204, 255)', // = #70f, 0.2 opacity
+    backgroundColor: 'rgba(244, 175, 193, 0.2)', // = #F4AFC1, 0.2 opacity
   };
 
   const checkedTextStyle: StyleProp<TextStyle> = {
-    color: '#70f',
+    color: '#FF6190',
   };
 
   const uncheckedContainerStyle: StyleProp<TextStyle> = {

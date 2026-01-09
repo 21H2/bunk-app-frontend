@@ -238,7 +238,7 @@ const ColorPickerModal: React.FC = () => {
       <View style={styles.bottomContainer}>
         <View style={styles.buttonContainer}>
           <Button color="#999" onPress={cancel} title="Cancel" />
-          <Button color="#70f" onPress={pick} title="Pick" />
+          <Button color="#FF6190" onPress={pick} title="Pick" />
         </View>
       </View>
     </Animated.View>

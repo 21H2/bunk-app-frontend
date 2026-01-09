@@ -1,46 +1,48 @@
-import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, View, useWindowDimensions } from 'react-native';
-import { DefaultText } from '../default-text';
-import { DefaultModal } from './default-modal';
-import { backgroundColors } from './background-colors';
-import { ButtonWithCenteredText } from '../button/centered-text';
-import { Logo14 } from '../logo';
-import { Close } from '../button/close';
-import Purchases, { PurchasesOffering } from 'react-native-purchases';
-import * as _ from 'lodash';
-import { AppStoreBadges } from '../badges/app-store/app-store';
-import { listen, notify } from '../../events/events';
-import { setSignedInUser } from '../../events/signed-in-user';
-import { getCurrentOfferingCached } from '../../purchases/purchases';
-import { pluralize, isMobileWeb } from '../../util/util';
+import { useCallback, useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  Platform,
+  View,
+  useWindowDimensions,
+} from "react-native";
+import { DefaultText } from "../default-text";
+import { DefaultModal } from "./default-modal";
+import { backgroundColors } from "./background-colors";
+import { ButtonWithCenteredText } from "../button/centered-text";
+import { Logo14 } from "../logo";
+import { Close } from "../button/close";
+import Purchases, { PurchasesOffering } from "react-native-purchases";
+import * as _ from "lodash";
+import { AppStoreBadges } from "../badges/app-store/app-store";
+import { listen, notify } from "../../events/events";
+import { setSignedInUser } from "../../events/signed-in-user";
+import { getCurrentOfferingCached } from "../../purchases/purchases";
+import { pluralize, isMobileWeb } from "../../util/util";
 
 const cardPadding = 20;
 
-type Referrer = 'blocked' | 'inquiry' | false;
+type Referrer = "blocked" | "inquiry" | false;
 
 const showPointOfSale = (reason: Referrer) => {
-  notify<Referrer>('show-point-of-sale', reason);
+  notify<Referrer>("show-point-of-sale", reason);
 };
 
 const useShowPointOfSale = () => {
-  const [referrer, setReferrer] = useState<Exclude<Referrer, false>>('blocked');
+  const [referrer, setReferrer] = useState<Exclude<Referrer, false>>("blocked");
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    return listen<Referrer>(
-      'show-point-of-sale',
-      (x) => {
-        if (x === undefined) {
-          return;
-        }
-
-        if (x !== false) {
-          setReferrer(x);
-        }
-
-        setIsVisible(x !== false);
+    return listen<Referrer>("show-point-of-sale", (x) => {
+      if (x === undefined) {
+        return;
       }
-    );
+
+      if (x !== false) {
+        setReferrer(x);
+      }
+
+      setIsVisible(x !== false);
+    });
   }, []);
 
   return [referrer, isVisible] as const;
@@ -50,8 +52,8 @@ const PurchaseButton = ({
   label,
   onPress,
 }: {
-  label: string
-  onPress: () => void,
+  label: string;
+  onPress: () => void;
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -61,7 +63,7 @@ const PurchaseButton = ({
     setLoading(false);
   }, []);
 
-  if (Platform.OS === 'ios' || Platform.OS === 'android') {
+  if (Platform.OS === "ios" || Platform.OS === "android") {
     return (
       <ButtonWithCenteredText
         onPress={_onPress}
@@ -82,14 +84,14 @@ const PurchaseButton = ({
     return (
       <View
         style={{
-          width: '100%',
-          alignItems: 'center',
+          width: "100%",
+          alignItems: "center",
         }}
       >
         <DefaultText
           style={{
-            color: 'white',
-            textAlign: 'center',
+            color: "white",
+            textAlign: "center",
             fontWeight: 500,
             maxWidth: 300,
           }}
@@ -101,7 +103,7 @@ const PurchaseButton = ({
             maxWidth: isMobileWeb() ? 176 : 250,
           }}
         >
-          <AppStoreBadges/>
+          <AppStoreBadges />
         </View>
       </View>
     );
@@ -112,11 +114,12 @@ const Offering = ({
   onPressClose,
   referrer,
 }: {
-  onPressClose: () => void,
-  referrer: Referrer
+  onPressClose: () => void;
+  referrer: Referrer;
 }) => {
   const [hasError, setHasError] = useState(false);
-  const [currentOffering, setCurrentOffering] = useState<PurchasesOffering | null>();
+  const [currentOffering, setCurrentOffering] =
+    useState<PurchasesOffering | null>();
   const { height: windowHeight } = useWindowDimensions();
 
   useEffect(() => {
@@ -135,11 +138,11 @@ const Offering = ({
           style={{
             width: 100,
             aspectRatio: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <ActivityIndicator size="large" color="#70f"/>
+          <ActivityIndicator size="large" color="#FF6190" />
         </View>
         <Close onPress={onPressClose} />
       </>
@@ -158,25 +161,29 @@ const Offering = ({
     const formattedUnits = _.capitalize(
       pluralize(
         currentPackage.product.introPrice.periodUnit,
-        currentPackage.product.introPrice.periodNumberOfUnits
-      )
+        currentPackage.product.introPrice.periodNumberOfUnits,
+      ),
     );
 
-    return `Try ${numUnits} ${formattedUnits} Free`
+    return `Try ${numUnits} ${formattedUnits} Free`;
   })();
 
   const subtitle =
-    referrer === 'blocked'
-      ? `You’re gonna need ${productName} for that...`
-      : 'Please support Duolicious 🥺 👉👈'
+    referrer === "blocked"
+      ? `You're gonna need ${productName} for that...`
+      : "Please support Bunk 🥺 👉👈";
 
   const onPress = async () => {
     setHasError(false);
 
     try {
       const { customerInfo } = await Purchases.purchasePackage(currentPackage);
-      if (!customerInfo.allPurchasedProductIdentifiers.includes(currentPackage.product.identifier)) {
-        throw new Error('Purchase failed');
+      if (
+        !customerInfo.allPurchasedProductIdentifiers.includes(
+          currentPackage.product.identifier,
+        )
+      ) {
+        throw new Error("Purchase failed");
       }
     } catch (e) {
       if (!e?.userCancelled) {
@@ -212,37 +219,37 @@ const Offering = ({
         <View>
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
               gap: 3,
             }}
           >
             <Logo14 size={14 * 2} color="black" rectSize={0.3} />
             <DefaultText
               style={{
-                fontFamily: 'TruenoBold',
+                fontFamily: "TruenoBold",
                 fontSize: 16,
               }}
             >
-              Duolicious
+              Bunk
             </DefaultText>
           </View>
-          {!isCompact &&
+          {!isCompact && (
             <DefaultText
               style={{
                 fontSize: 42,
                 fontWeight: 900,
-                textAlign: 'center',
+                textAlign: "center",
               }}
             >
               {productName.toUpperCase()}
             </DefaultText>
-          }
+          )}
         </View>
         <DefaultText
           style={{
-            textAlign: 'center',
+            textAlign: "center",
           }}
         >
           {subtitle}
@@ -250,9 +257,9 @@ const Offering = ({
       </View>
       <View
         style={{
-          backgroundColor: '#70f',
+          backgroundColor: "#FF6190",
           borderRadius: 10,
-          overflow: 'hidden',
+          overflow: "hidden",
           borderWidth: 3,
         }}
       >
@@ -264,21 +271,18 @@ const Offering = ({
         >
           <View
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: -cardPadding,
               right: 0,
             }}
           >
-            <Logo14
-              size={80}
-              color="#ffd700"
-            />
+            <Logo14 size={80} color="#ffd700" />
           </View>
           <DefaultText
             style={{
               fontWeight: 900,
               fontSize: 28,
-              color: '#ffd700',
+              color: "#ffd700",
             }}
           >
             {productName.toUpperCase()}
@@ -286,7 +290,7 @@ const Offering = ({
 
           <DefaultText
             style={{
-              color: 'white',
+              color: "white",
             }}
           >
             <DefaultText
@@ -295,21 +299,22 @@ const Offering = ({
                 fontWeight: 700,
               }}
             >
-              {currentPackage.product.priceString} {currentPackage.product.currencyCode}
+              {currentPackage.product.priceString}{" "}
+              {currentPackage.product.currencyCode}
             </DefaultText>
-            {} / {currentPackage.packageType.toLowerCase().replace(/ly$/, '')}
+            {} / {currentPackage.packageType.toLowerCase().replace(/ly$/, "")}
           </DefaultText>
 
           <DefaultText
             style={{
-              color: '#70f',
+              color: "#FF6190",
               fontWeight: 700,
               fontSize: 12,
               paddingHorizontal: 7,
               paddingVertical: 3,
-              backgroundColor: 'white',
+              backgroundColor: "white",
               borderRadius: 999,
-              alignSelf: 'flex-start',
+              alignSelf: "flex-start",
             }}
           >
             FREE TRIAL
@@ -317,43 +322,40 @@ const Offering = ({
 
           <DefaultText
             style={{
-              color: 'white',
+              color: "white",
               paddingVertical: 14,
             }}
           >
             {String(currentOffering.metadata.description)}
           </DefaultText>
 
-          <PurchaseButton
-            label={buttonCta}
-            onPress={onPress}
-          />
-          {hasError &&
+          <PurchaseButton label={buttonCta} onPress={onPress} />
+          {hasError && (
             <DefaultText
               style={{
-                color: 'red',
-                textAlign: 'center',
+                color: "red",
+                textAlign: "center",
                 fontWeight: 700,
               }}
             >
               Something went wrong
             </DefaultText>
-          }
+          )}
         </View>
 
-        {!isCompact &&
+        {!isCompact && (
           <DefaultText
             style={{
               fontSize: 12,
-              color: 'white',
-              backgroundColor: 'black',
+              color: "white",
+              backgroundColor: "black",
               paddingHorizontal: cardPadding,
               paddingVertical: cardPadding / 2,
             }}
           >
             Subscription renews automatically. Cancel anytime.
           </DefaultText>
-        }
+        )}
       </View>
       <Close onPress={onPressClose} />
     </>
@@ -373,20 +375,20 @@ const PointOfSaleModal = () => {
     >
       <View
         style={{
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "row",
           padding: 10,
           ...backgroundColors.dark,
         }}
       >
         <View
           style={{
-            maxWidth: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
+            maxWidth: "100%",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <View
@@ -394,18 +396,15 @@ const PointOfSaleModal = () => {
               maxWidth: 600,
               padding: 20,
               gap: 20,
-              backgroundColor: 'white',
+              backgroundColor: "white",
               borderRadius: 5,
-              flexDirection: 'column',
-              overflow: 'hidden',
-              alignItems: 'center',
-              justifyContent: 'center',
+              flexDirection: "column",
+              overflow: "hidden",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <Offering
-              onPressClose={onPressClose}
-              referrer={referrer}
-            />
+            <Offering onPressClose={onPressClose} referrer={referrer} />
           </View>
         </View>
       </View>
@@ -413,7 +412,4 @@ const PointOfSaleModal = () => {
   );
 };
 
-export {
-  showPointOfSale,
-  PointOfSaleModal,
-};
+export { showPointOfSale, PointOfSaleModal };

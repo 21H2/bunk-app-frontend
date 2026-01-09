@@ -75,7 +75,7 @@ const DonutChart = ({percentage, ...rest}) => {
                cx="50%"
                cy="50%"
                r={radius}
-               stroke="#70f"
+               stroke="#FF6190"
                fill="transparent"
                strokeWidth={strokeWidth * 0.8}
                strokeDasharray={circumference}

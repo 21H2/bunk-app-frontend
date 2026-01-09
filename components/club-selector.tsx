@@ -58,7 +58,7 @@ const SelectedClub = ({
         textStyle={{
           color: appThemeName === 'dark'
             ? '#ffffff'
-            : '#7700ff',
+            : '#FF6190',
         }}
       >
         {clubItem.name}

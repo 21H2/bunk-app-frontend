@@ -340,7 +340,7 @@ const ProfileCard = ({
           }}
         >
           <X
-            stroke="#70f"
+            stroke="#FF6190"
             strokeWidth={3}
             height={48}
             width={48}

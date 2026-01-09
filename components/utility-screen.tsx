@@ -58,7 +58,7 @@ const UtilityScreen = ({
   return (
     <View
       style={{
-        backgroundColor: '#70f',
+        backgroundColor: '#F4AFC1',
         width: '100%',
         height: '100%',
         alignItems: 'center',

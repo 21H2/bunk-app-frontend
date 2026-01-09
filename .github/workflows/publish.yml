@@ -58,15 +58,15 @@ jobs:
           find dist/_expo/static/js/web/ -type f -print0 | xargs -0 sed -i 's/assets\/node_modules/assets/g'
         env:
           NODE_OPTIONS: --openssl-legacy-provider
-          DUO_API_URL:            https://api.duolicious.app
-          DUO_CHAT_URL:            wss://chat.duolicious.app
-          DUO_IMAGES_URL: https://user-images.duolicious.app
-          DUO_AUDIO_URL:   https://user-audio.duolicious.app
-          DUO_STATUS_URL:      https://status.duolicious.app
-          DUO_WEB_BASE_URL:       https://web.duolicious.app
+          DUO_API_URL: https://api.bunk-app.in
+          DUO_CHAT_URL: wss://chat.bunk-app.in
+          DUO_IMAGES_URL: https://user-images.bunk-app.in
+          DUO_AUDIO_URL: https://user-audio.bunk-app.in
+          DUO_STATUS_URL: https://status.bunk-app.in
+          DUO_WEB_BASE_URL: https://web.bunk-app.in
       - uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: a73a8f703a9a1eefac56f84ca6a4c9ac
-          projectName: duolicious
+          projectName: bunk
           directory: dist

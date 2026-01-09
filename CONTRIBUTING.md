@@ -1,4 +1,4 @@
-# Contributing to Duolicious
+# Contributing to Bunk
 
 We’re excited you’re here! This guide will help you get productive quickly and submit great pull requests.
 
@@ -63,4 +63,4 @@ When filing an issue, please include:
 
 ---
 
-Thanks for helping people find love on the internet! 💜 
+Thanks for helping people connect on the internet! 💜

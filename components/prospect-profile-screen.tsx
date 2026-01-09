@@ -390,7 +390,7 @@ const BlockButton = ({name, personUuid}) => {
       }}
     >
       {isPosting &&
-        <ActivityIndicator size="small" color="#70f"/>
+        <ActivityIndicator size="small" color="#FF6190"/>
       }
       {!isLoading && isSkipped &&
         <RotateCcw
@@ -767,7 +767,7 @@ const CurriedContent = ({navigationRef, navigation, route}) => {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#70f',
+            backgroundColor: '#FF6190',
           }}
         >
           <DefaultText

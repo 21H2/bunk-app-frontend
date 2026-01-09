@@ -127,7 +127,7 @@ const WebSplashScreen = ({loading}) => {
           alignItems: 'center',
           flexDirection: 'column',
           justifyContent: 'space-around',
-          backgroundColor: '#70f',
+          backgroundColor: '#F4AFC1',
           opacity: opacity,
           zIndex: 999,
         }}
@@ -504,7 +504,7 @@ const App = () => {
               }}
               documentTitle={{
                 formatter: () =>
-                  (numUnread ? `(${numUnread}) ` : '') + 'Duolicious'
+                  (numUnread ? `(${numUnread}) ` : '') + 'Bunk'
               }}
             >
               <Stack.Navigator

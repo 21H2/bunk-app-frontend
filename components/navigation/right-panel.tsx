@@ -1,22 +1,38 @@
-import { useRef } from 'react';
-import { View } from 'react-native';
-import { DefaultText } from '../default-text';
-import { getRandomElement } from '../../util/util';
-import { PARTNER_URL } from '../../env/env';
+import { useRef } from "react";
+import { View } from "react-native";
+import { DefaultText } from "../default-text";
+import { getRandomElement } from "../../util/util";
+import { PARTNER_URL } from "../../env/env";
 
 type Partner = {
-  name: string
-  file: string
-  link: string
+  name: string;
+  file: string;
+  link: string;
 };
 
 const partners: Partner[] = [
-  { name: 'SFDating',  file: 'sfdating.jpg',  link: 'https://discord.gg/REbbHqzD9p'},
-  { name: 'duo3k',     file: 'duo3k.webp',    link: 'https://discord.gg/duo3k'},
-  { name: 'Tiblur',    file: 'tiblur.jpg',    link: 'https://tiblur.com/register' },
-  { name: 'gg/redux',  file: 'redux.png',     link: 'https://discord.gg/EA3QYF9apJ' },
-  { name: 'NEET_Chat', file: 'neet-chat.png', link: 'https://discord.gg/96JShH3N7Y' },
-  { name: 'Affinity',  file: 'affinity.png',  link: 'https://discord.gg/pvQ9EMVVq5' },
+  {
+    name: "SFDating",
+    file: "sfdating.jpg",
+    link: "https://discord.gg/REbbHqzD9p",
+  },
+  { name: "duo3k", file: "duo3k.webp", link: "https://discord.gg/duo3k" },
+  { name: "Tiblur", file: "tiblur.jpg", link: "https://tiblur.com/register" },
+  {
+    name: "gg/redux",
+    file: "redux.png",
+    link: "https://discord.gg/EA3QYF9apJ",
+  },
+  {
+    name: "NEET_Chat",
+    file: "neet-chat.png",
+    link: "https://discord.gg/96JShH3N7Y",
+  },
+  {
+    name: "Affinity",
+    file: "affinity.png",
+    link: "https://discord.gg/pvQ9EMVVq5",
+  },
 ];
 
 const DuoliciousRightPanelContent = () => {
@@ -24,19 +40,19 @@ const DuoliciousRightPanelContent = () => {
     <View
       style={{
         borderRadius: 10,
-        backgroundColor: '#70f',
-        width: '100%',
+        backgroundColor: "#F4AFC1",
+        width: "100%",
         padding: 20,
         gap: 20,
-        alignItems: 'center',
+        alignItems: "center",
       }}
     >
       <DefaultText
         style={{
-          color: 'white',
-          fontWeight: '900',
+          color: "white",
+          fontWeight: "900",
           fontSize: 22,
-          textAlign: 'center',
+          textAlign: "center",
         }}
       >
         Your Social Group Here
@@ -44,29 +60,29 @@ const DuoliciousRightPanelContent = () => {
 
       <DefaultText
         style={{
-          color: 'white',
-          textAlign: 'center',
-          backgroundColor: 'black',
+          color: "white",
+          textAlign: "center",
+          backgroundColor: "black",
           borderRadius: 10,
           padding: 14,
         }}
       >
         Do you have a Discord server, Reddit sub, forum or other social group
         you want to promote? You can do it here, for free!
-        {'\n\n'}
-        What’s the catch? You’ll have to promote Duolicious back. (Plus your
-        group should be something Duolicious members would like.)
-        {'\n\n'}
+        {"\n\n"}
+        What's the catch? You'll have to promote Bunk back. (Plus your group
+        should be something Bunk members would like.)
+        {"\n\n"}
         Inquiries: {}
         <DefaultText
           style={{
-            color: 'white',
-            fontWeight: '700'
+            color: "white",
+            fontWeight: "700",
           }}
           // @ts-ignore
-          href="mailto:admin@duolicious.app"
+          href="mailto:admin@bunk-app.in"
         >
-          admin@duolicious.app
+          admin@bunk-app.in
         </DefaultText>
       </DefaultText>
     </View>
@@ -85,47 +101,45 @@ const SponsoredRightPanelContent = () => {
       style={{
         width: 300,
         gap: 10,
-        justifyContent: 'center',
+        justifyContent: "center",
       }}
     >
       <a
         href={partner.link}
         target="_blank"
         style={{
-          display: 'block',
-          width: '100%',
+          display: "block",
+          width: "100%",
           height: 250,
           borderWidth: 1,
-          borderColor: 'black',
-          borderStyle: 'solid',
+          borderColor: "black",
+          borderStyle: "solid",
         }}
       >
         <img
           src={`${PARTNER_URL}/${partner.file}`}
           style={{
-            width: '100%',
-            height: '100%',
+            width: "100%",
+            height: "100%",
           }}
         />
       </a>
 
-      <DefaultText style={{ color: '#999', textAlign: 'center' }}>
-        <DefaultText style={{ fontWeight: '700' }}>
-        {partner.name}
-        </DefaultText>
-        {} is a Duolicious partner
+      <DefaultText style={{ color: "#999", textAlign: "center" }}>
+        <DefaultText style={{ fontWeight: "700" }}>{partner.name}</DefaultText>
+        {} is a Bunk partner
       </DefaultText>
 
-      <DefaultText style={{ textAlign: 'center' }}>
+      <DefaultText style={{ textAlign: "center" }}>
         Want to promote your social group for free? Inquire at {}
         <DefaultText
           style={{
-            fontWeight: '700'
+            fontWeight: "700",
           }}
           // @ts-ignore
-          href="mailto:admin@duolicious.app"
+          href="mailto:admin@bunk-app.in"
         >
-          admin@duolicious.app
+          admin@bunk-app.in
         </DefaultText>
         .
       </DefaultText>
@@ -137,9 +151,9 @@ const RightPanelContent = () => {
   const rand = useRef(Math.random()).current;
 
   if (rand < 0.2) {
-    return <DuoliciousRightPanelContent/>;
+    return <DuoliciousRightPanelContent />;
   } else {
-    return <SponsoredRightPanelContent/>;
+    return <SponsoredRightPanelContent />;
   }
 };
 
@@ -151,11 +165,9 @@ const RightPanel = () => {
         padding: 20,
       }}
     >
-      <RightPanelContent/>
+      <RightPanelContent />
     </View>
   );
 };
 
-export {
-  RightPanel,
-};
+export { RightPanel };

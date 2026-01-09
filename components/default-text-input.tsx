@@ -15,7 +15,7 @@ const DefaultTextInput = (props) => {
       ref={innerRef}
       placeholder="Write here..."
       placeholderTextColor="#888"
-      cursorColor="#70f"
+      cursorColor="#FF6190"
       returnKeyType="done"
       onSubmitEditing={() => Keyboard.dismiss()}
       style={{

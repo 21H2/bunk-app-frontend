@@ -176,13 +176,13 @@ const useScrollbarStyle = () => {
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #70f;
+    background-color: #FF6190;
     border-radius: 99px;
   }
 
   @-moz-document url-prefix() {
     * {
-      scrollbar-color: #70f #ddd;
+      scrollbar-color: #FF6190 #ddd;
     }
 
     *::-moz-scrollbar-thumb {

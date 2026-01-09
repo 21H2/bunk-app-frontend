@@ -1,6 +1,6 @@
 # Developer Guide
 
-This guide helps you get the Duolicious frontend running locally fast, run tests, and ship high‑quality pull requests.
+This guide helps you get the Bunk frontend running locally fast, run tests, and ship high‑quality pull requests.
 
 ---
 
@@ -66,12 +66,12 @@ Runtime configuration is provided to the app through Expo `extra` values (see `a
 
 ### Use the production backend (optional)
 ```bash
-export DUO_STATUS_URL=https://status.duolicious.app
-export DUO_API_URL=https://api.duolicious.app
-export DUO_CHAT_URL=wss://chat.duolicious.app
-export DUO_IMAGES_URL=https://user-images.duolicious.app
-export DUO_AUDIO_URL=https://user-audio.duolicious.app
-export DUO_PARTNER_URL=${DUO_PARTNER_URL:-https://partner.duolicious.app}
+export DUO_STATUS_URL=https://status.bunk-app.in
+export DUO_API_URL=https://api.bunk-app.in
+export DUO_CHAT_URL=wss://chat.bunk-app.in
+export DUO_IMAGES_URL=https://user-images.bunk-app.in
+export DUO_AUDIO_URL=https://user-audio.bunk-app.in
+export DUO_PARTNER_URL=${DUO_PARTNER_URL:-https://partner.bunk-app.in}
 ```
 
 ### Use a local/docker backend (optional)
@@ -81,7 +81,7 @@ export DUO_API_URL=http://localhost:5000
 export DUO_CHAT_URL=ws://localhost:5443
 export DUO_IMAGES_URL=http://localhost:9090/s3-mock-bucket
 export DUO_AUDIO_URL=http://localhost:9090/s3-mock-audio-bucket
-export DUO_PARTNER_URL=${DUO_PARTNER_URL:-https://partner.duolicious.app}
+export DUO_PARTNER_URL=${DUO_PARTNER_URL:-https://partner.bunk-app.in}
 ```
 
 ---
@@ -162,7 +162,7 @@ Add this to `.credentials.json`:
     "keystore": {
       "keystorePath": "/path/to/duolicious.keystore",
       "keystorePassword": "REPLACE-WITH-KEYSTORE-PASSWORD",
-      "keyAlias": "duolicious",
+      "keyAlias": "bunk",
       "keyPassword": "REPLACE-WITH-KEY-PASSWORD"
     }
   }
@@ -203,8 +203,8 @@ To generate an ad-hoc ipa file:
 
 ---
 
-## Sending Duolicious to Tim Apple
+## Sending Bunk to Tim Apple
 
 ```bash
-xcrun altool --upload-app -t ios -u "email@exmaple.com" -p "password" -f /path/to/duolicious-frontend/build-1720942386773.ipa
+xcrun altool --upload-app -t ios -u "email@exmaple.com" -p "password" -f /path/to/bunk-app-frontend/build-1720942386773.ipa
 ```

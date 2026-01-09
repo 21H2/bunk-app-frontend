@@ -44,12 +44,12 @@ const APP_THEME: AppThemes = {
     },
     interactiveBorderColor: '#dddddd',
     quizCardBackgroundColor: '#ffffff',
-    quizCardColor: '#7700ff',
+    quizCardColor: '#FF6190',
     speechBubbleOtherUserBackgroundColor: '#eeeeee',
     speechBubbleOtherUserColor: '#000000',
-    brandColor: '#7700ff',
-    avatarBackgroundColor: '#f1e5ff',
-    avatarColor: 'rgba(119, 0, 255, 0.2)',
+    brandColor: '#F4AFC1',
+    avatarBackgroundColor: '#AEDCFF',
+    avatarColor: 'rgba(244, 175, 193, 0.3)',
   },
   dark: {
     primaryColor: '#1a1a1e',
@@ -64,12 +64,12 @@ const APP_THEME: AppThemes = {
     },
     interactiveBorderColor: '#000000',
     quizCardBackgroundColor: '#2c2c33',
-    quizCardColor: '#000000',
+    quizCardColor: '#FF6190',
     speechBubbleOtherUserBackgroundColor: '#2a2b35',
     speechBubbleOtherUserColor: '#ffffff',
-    brandColor: '#ffffff',
+    brandColor: '#F4AFC1',
     avatarBackgroundColor: '#2a2b35',
-    avatarColor: '#ffffff',
+    avatarColor: '#AEDCFF',
   }
 };
 

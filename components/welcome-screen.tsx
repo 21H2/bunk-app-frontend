@@ -8,27 +8,25 @@ import {
   Text,
   View,
   useWindowDimensions,
-} from 'react-native';
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { DefaultText } from './default-text';
-import { DefaultTextInput } from './default-text-input';
-import { ButtonWithCenteredText } from './button/centered-text';
-import { createAccountOptionGroups } from '../data/option-groups';
-import { OptionScreen } from './option-screen';
-import { japi } from '../api/api';
-import { sessionToken } from '../kv-storage/session-token';
-import { Logo16 } from './logo';
-import { KeyboardDismissingView } from './keyboard-dismissing-view';
-import { otpDestination } from '../App';
-import { useSignedInUser } from '../events/signed-in-user';
-import { joinClub } from '../club/club';
-import { isMobile } from '../util/util';
+} from "react-native";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { DefaultText } from "./default-text";
+import { DefaultTextInput } from "./default-text-input";
+import { ButtonWithCenteredText } from "./button/centered-text";
+import { createAccountOptionGroups } from "../data/option-groups";
+import { OptionScreen } from "./option-screen";
+import { japi } from "../api/api";
+import { sessionToken } from "../kv-storage/session-token";
+import { Logo16 } from "./logo";
+import { KeyboardDismissingView } from "./keyboard-dismissing-view";
+import { otpDestination } from "../App";
+import { useSignedInUser } from "../events/signed-in-user";
+import { joinClub } from "../club/club";
+import { isMobile } from "../util/util";
+
+const leftSvg = require("../assets/landing/left.svg");
+const rightSvg = require("../assets/landing/right.svg");
 
 const activeMembersText = (
   numActiveMembers: number,
@@ -40,7 +38,7 @@ const activeMembersText = (
   } else {
     return (
       `${numActiveMembers.toLocaleString()} active member` +
-      (numActiveMembers === 1 ? '' : 's')
+      (numActiveMembers === 1 ? "" : "s")
     );
   }
 };
@@ -49,17 +47,18 @@ const ActiveMembers = ({
   numActiveMembers,
   minActiveMembers,
   color,
-  minText = 'on the Duolicious dating app',
+  minText = "on the Bunk dating app",
 }: {
-  numActiveMembers: number,
-  minActiveMembers: number
-  color: string,
-  minText?: string,
+  numActiveMembers: number;
+  minActiveMembers: number;
+  color: string;
+  minText?: string;
 }) => {
   const opacity = useRef(new Animated.Value(1)).current;
 
   const [displayText, setDisplayText] = useState(
-    activeMembersText(numActiveMembers, minActiveMembers, minText));
+    activeMembersText(numActiveMembers, minActiveMembers, minText),
+  );
 
   const [nextDisplayText, setNextDisplayText] = useState(displayText);
 
@@ -67,7 +66,8 @@ const ActiveMembers = ({
 
   useEffect(() => {
     setNextDisplayText(
-      activeMembersText(numActiveMembers, minActiveMembers, minText));
+      activeMembersText(numActiveMembers, minActiveMembers, minText),
+    );
   }, [numActiveMembers, minActiveMembers]);
 
   useEffect(() => {
@@ -82,8 +82,8 @@ const ActiveMembers = ({
       Animated.timing(opacity, {
         toValue: 0,
         duration: 250,
-        useNativeDriver: true
-      })
+        useNativeDriver: true,
+      }),
     ]).start(() => {
       setDisplayText(nextDisplayText);
 
@@ -91,7 +91,7 @@ const ActiveMembers = ({
       Animated.timing(opacity, {
         toValue: 1,
         duration: 250,
-        useNativeDriver: true
+        useNativeDriver: true,
       }).start();
     });
   }, [nextDisplayText]);
@@ -99,10 +99,10 @@ const ActiveMembers = ({
   return (
     <Animated.Text
       style={{
-        textAlign: 'center',
+        textAlign: "center",
         color,
         opacity,
-        fontFamily: 'MontserratRegular',
+        fontFamily: "MontserratRegular",
       }}
     >
       {displayText}
@@ -118,74 +118,77 @@ const WelcomeScreen = () => {
   return (
     <View
       style={{
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#70f',
-        overflow: 'hidden',
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#F4AFC1",
+        overflow: "hidden",
       }}
     >
-      {Platform.OS === 'web' && windowWidth >= 950 && <>
-        <img
-          src="https://duolicious.app/assets/landing/left.svg"
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            left: `-${75 + Math.max(0, (1380 - windowWidth) / 2)}px`,
-            width: '500px',
-            height: 'auto',
-            objectFit: 'cover',
-            backfaceVisibility: 'hidden',
-            transition: 'transform 0.5s ease-out',
-          }}
-        >
-        </img>
-        <img
-          src="https://duolicious.app/assets/landing/right.svg"
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            right: `-${75 + Math.max(0, (1380 - windowWidth) / 2)}px`,
-            width: '500px',
-            height: 'auto',
-            objectFit: 'cover',
-            backfaceVisibility: 'hidden',
-            transition: 'transform 0.5s ease-out',
-          }}
-        >
-        </img>
-      </>}
+      {Platform.OS === "web" && windowWidth >= 950 && (
+        <>
+          <img
+            src={leftSvg.uri}
+            style={{
+              position: "absolute",
+              bottom: "0",
+              left: `-${75 + Math.max(0, (1380 - windowWidth) / 2)}px`,
+              width: "500px",
+              height: "auto",
+              objectFit: "cover",
+              backfaceVisibility: "hidden",
+              transition: "transform 0.5s ease-out",
+            }}
+          ></img>
+          <img
+            src={rightSvg.uri}
+            style={{
+              position: "absolute",
+              bottom: "0",
+              right: `-${75 + Math.max(0, (1380 - windowWidth) / 2)}px`,
+              width: "500px",
+              height: "auto",
+              objectFit: "cover",
+              backfaceVisibility: "hidden",
+              transition: "transform 0.5s ease-out",
+            }}
+          ></img>
+        </>
+      )}
       <View
         style={{
-          height: '100%',
-          width: '100%',
+          height: "100%",
+          width: "100%",
           maxWidth: 600,
-          alignSelf: 'center',
-          overflow: 'visible',
+          alignSelf: "center",
+          overflow: "visible",
         }}
       >
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-            animation: 'slide_from_right',
+            animation: "slide_from_right",
           }}
         >
           <Stack.Screen name="Welcome Screen" component={WelcomeScreen_} />
-          <Stack.Screen name="Create Account Or Sign In Screen" component={OptionScreen} />
+          <Stack.Screen
+            name="Create Account Or Sign In Screen"
+            component={OptionScreen}
+          />
         </Stack.Navigator>
       </View>
     </View>
   );
 };
 
-const InviteScreen = ({navigation, route}) => {
+const InviteScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const [signedInUser] = useSignedInUser();
 
   const clubName = route.params?.clubName as string | undefined;
   const [numUsers, setNumUsers] = useState<number | undefined>(undefined);
 
-  if (typeof clubName !== 'string') {
-    throw new Error('clubName should be a string');
+  if (typeof clubName !== "string") {
+    throw new Error("clubName should be a string");
   }
 
   const submit = async () => {
@@ -196,7 +199,7 @@ const InviteScreen = ({navigation, route}) => {
 
       setLoading(false);
 
-      if (Platform.OS === 'web') {
+      if (Platform.OS === "web") {
         history.pushState((history?.state ?? 0) + 1, "", "/#");
       }
 
@@ -207,25 +210,25 @@ const InviteScreen = ({navigation, route}) => {
             state: {
               routes: [
                 {
-                  name: "Search"
-                }
-              ]
-            }
-          }
-        ]
+                  name: "Search",
+                },
+              ],
+            },
+          },
+        ],
       });
     } else {
       navigation.reset({
         routes: [
           {
-            name: 'Welcome',
+            name: "Welcome",
             state: {
               routes: [
                 {
-                  name: 'Welcome Screen',
-                  params: { clubName, numUsers }
+                  name: "Welcome Screen",
+                  params: { clubName, numUsers },
                 },
-              ]
+              ],
             },
           },
         ],
@@ -236,11 +239,11 @@ const InviteScreen = ({navigation, route}) => {
   useEffect(() => {
     const updateNumUsers = async () => {
       const response = await japi(
-          'GET',
-          '/stats?club-name=' + encodeURIComponent(clubName));
+        "GET",
+        "/stats?club-name=" + encodeURIComponent(clubName),
+      );
 
-      if (!response.ok)
-        return;
+      if (!response.ok) return;
 
       setNumUsers(response.json.num_active_users);
     };
@@ -253,54 +256,55 @@ const InviteScreen = ({navigation, route}) => {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: '#70f',
-        width: '100%',
-        height: '100%',
+        backgroundColor: "#70f",
+        width: "100%",
+        height: "100%",
       }}
     >
       <KeyboardDismissingView
         style={{
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
           maxWidth: 600,
-          alignSelf: 'center',
-          flexDirection: 'column',
+          alignSelf: "center",
+          flexDirection: "column",
         }}
       >
         <View
           style={{
-            marginTop: 10 + (Platform.OS === 'web' ? 0 : StatusBar.currentHeight ?? 0),
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
+            marginTop:
+              10 + (Platform.OS === "web" ? 0 : (StatusBar.currentHeight ?? 0)),
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
             gap: 1,
           }}
         >
           <Logo16 size={32} rectSize={0.3} />
           <Text
             style={{
-              color: 'white',
-              alignSelf: 'center',
-              fontFamily: 'TruenoBold',
+              color: "white",
+              alignSelf: "center",
+              fontFamily: "TruenoBold",
               fontSize: 20,
             }}
             selectable={false}
           >
-            Duolicious
+            Bunk
           </Text>
         </View>
         <View
           style={{
-            alignSelf: 'center',
-            justifyContent: 'center',
+            alignSelf: "center",
+            justifyContent: "center",
             flex: 1,
-            width: '100%',
+            width: "100%",
             paddingHorizontal: 10,
           }}
         >
           <View
             style={{
-              backgroundColor: 'white',
+              backgroundColor: "white",
               borderRadius: 10,
               shadowOffset: {
                 width: 0,
@@ -310,35 +314,35 @@ const InviteScreen = ({navigation, route}) => {
               shadowRadius: 10,
               elevation: 3,
               paddingTop: 20,
-              width: '100%',
+              width: "100%",
             }}
           >
             <View
               style={{
-                alignSelf: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignSelf: "center",
+                alignItems: "center",
+                justifyContent: "center",
                 gap: 10,
-                width: '100%',
+                width: "100%",
                 paddingHorizontal: 10,
               }}
             >
               <DefaultText
                 style={{
-                  textAlign: 'center',
-                  color: '#555',
+                  textAlign: "center",
+                  color: "#555",
                 }}
               >
                 You’re invited to join
               </DefaultText>
               <DefaultText
                 style={{
-                  textAlign: 'center',
-                  color: 'black',
+                  textAlign: "center",
+                  color: "black",
                   fontSize: 26,
-                  fontFamily: 'MontserratBlack',
+                  fontFamily: "MontserratBlack",
                   flexShrink: 1,
-                  width: '100%',
+                  width: "100%",
                 }}
               >
                 {clubName}
@@ -351,11 +355,11 @@ const InviteScreen = ({navigation, route}) => {
             </View>
             <View
               style={{
-                justifyContent: 'center',
+                justifyContent: "center",
                 padding: 20,
                 paddingTop: 40,
-                alignSelf: 'flex-start',
-                width: '100%',
+                alignSelf: "flex-start",
+                width: "100%",
               }}
             >
               <ButtonWithCenteredText
@@ -363,15 +367,15 @@ const InviteScreen = ({navigation, route}) => {
                 borderWidth={0}
                 loading={loading}
               >
-                <DefaultText disableTheme style={{fontWeight: '700'}}>
+                <DefaultText disableTheme style={{ fontWeight: "700" }}>
                   Accept Invite
                 </DefaultText>
               </ButtonWithCenteredText>
               <DefaultText
                 style={{
-                  color: '#777',
-                  textAlign: 'center',
-                  alignSelf: 'center',
+                  color: "#777",
+                  textAlign: "center",
+                  alignSelf: "center",
                   lineHeight: 28,
                 }}
               >
@@ -379,25 +383,27 @@ const InviteScreen = ({navigation, route}) => {
                 <DefaultText
                   disableTheme
                   style={{
-                    fontWeight: '600',
+                    fontWeight: "600",
                   }}
-                  onPress={() => Linking.openURL('https://duolicious.app/terms')}
+                  onPress={() => Linking.openURL("https://bunk-app.in/terms")}
                 >
                   Terms
                 </DefaultText>
                 {}, {}
                 <DefaultText
                   disableTheme
-                  style={{ fontWeight: '600' }}
-                  onPress={() => Linking.openURL('https://duolicious.app/privacy')}
+                  style={{ fontWeight: "600" }}
+                  onPress={() => Linking.openURL("https://bunk-app.in/privacy")}
                 >
                   Privacy Policy
                 </DefaultText>
                 {} and {}
                 <DefaultText
                   disableTheme
-                  style={{ fontWeight: '600' }}
-                  onPress={() => Linking.openURL('https://duolicious.app/guidelines')}
+                  style={{ fontWeight: "600" }}
+                  onPress={() =>
+                    Linking.openURL("https://bunk-app.in/guidelines")
+                  }
                 >
                   Community Guidelines
                 </DefaultText>
@@ -410,24 +416,26 @@ const InviteScreen = ({navigation, route}) => {
   );
 };
 
-const WelcomeScreen_ = ({navigation, route}) => {
-  const clubName_ = (route.params?.clubName) as string | undefined;
-  const [numUsers, setNumUsers] = useState<number | undefined>(route.params?.numUsers);
+const WelcomeScreen_ = ({ navigation, route }) => {
+  const clubName_ = route.params?.clubName as string | undefined;
+  const [numUsers, setNumUsers] = useState<number | undefined>(
+    route.params?.numUsers,
+  );
 
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [loginStatus, setLoginStatus] = useState("")
+  const [loginStatus, setLoginStatus] = useState("");
 
   const { height: windowHeight } = useWindowDimensions();
 
   const setEmailSafely = (e: string) => {
-    const sanitizedText = e.replace(/\s/g, '');
+    const sanitizedText = e.replace(/\s/g, "");
     setEmail(sanitizedText);
   };
 
   const submit = async (suffix?: string) => {
-    const suffix_ = suffix ?? '';
-    const email_ = email + (email.endsWith(suffix_) ? '': suffix_);
+    const suffix_ = suffix ?? "";
+    const email_ = email + (email.endsWith(suffix_) ? "" : suffix_);
 
     setLoginStatus("");
     setIsLoading(true);
@@ -437,8 +445,8 @@ const WelcomeScreen_ = ({navigation, route}) => {
     Keyboard.dismiss();
 
     const response = await japi(
-      'post',
-      '/request-otp',
+      "post",
+      "/request-otp",
       {
         email: email_,
         ...(clubName_ && { pending_club_name: clubName_ }),
@@ -451,39 +459,39 @@ const WelcomeScreen_ = ({navigation, route}) => {
     if (response.ok) {
       await sessionToken(response.json.session_token);
 
-      if (Platform.OS === 'web') {
+      if (Platform.OS === "web") {
         history.pushState((history?.state ?? 0) + 1, "", "/#");
       }
 
-      navigation.navigate(
-        'Create Account Or Sign In Screen',
-        {
-          optionGroups: createAccountOptionGroups,
-          showSkipButton: false,
-          showCloseButton: false,
-          showBackButton: true,
-          buttonBorderWidth: 0,
-          backgroundColor: '#7700ff',
-          color: '#ffffff',
-        },
-      );
+      navigation.navigate("Create Account Or Sign In Screen", {
+        optionGroups: createAccountOptionGroups,
+        showSkipButton: false,
+        showCloseButton: false,
+        showBackButton: true,
+        buttonBorderWidth: 0,
+        backgroundColor: "#F4AFC1",
+        color: "#ffffff",
+      });
     } else {
       setLoginStatus(
-        response.status === 400 ? 'We don’t support that email provider' :
-        response.status === 429 ? 'You’re doing that too much' :
-        response.status === 460 ? 'Network blocked. Are you using a VPN?' :
-        response.status === 461 ? 'Your account is banned' :
-        'We couldn’t connect to Duolicious'
+        response.status === 400
+          ? "We don’t support that email provider"
+          : response.status === 429
+            ? "You’re doing that too much"
+            : response.status === 460
+              ? "Network blocked. Are you using a VPN?"
+              : response.status === 461
+                ? "Your account is banned"
+                : "We couldn’t connect to Bunk",
       );
     }
   };
 
   useEffect(() => {
     const updateNumUsers = async () => {
-      const response = await japi('GET', '/stats');
+      const response = await japi("GET", "/stats");
 
-      if (!response.ok)
-        return;
+      if (!response.ok) return;
 
       setNumUsers(response.json.num_active_users);
     };
@@ -493,103 +501,109 @@ const WelcomeScreen_ = ({navigation, route}) => {
     }
   }, [numUsers]);
 
-  const SuffixButton = useCallback(({suffix}) => (
-    <ButtonWithCenteredText
-      onPress={() => !isLoading && submit(suffix)}
-      borderWidth={0}
-      secondary={true}
-      containerStyle={{
-        marginTop: 0,
-        marginBottom: 0,
-        height: undefined,
-      }}
-      backgroundColor="rgb(228, 204, 255)"
-      textStyle={{
-        padding: 10,
-        fontSize: 12,
-        color: '#70f',
-      }}
-    >
-      {suffix}
-    </ButtonWithCenteredText>
-  ), [isLoading, submit]);
+  const SuffixButton = useCallback(
+    ({ suffix }) => (
+      <ButtonWithCenteredText
+        onPress={() => !isLoading && submit(suffix)}
+        borderWidth={0}
+        secondary={true}
+        containerStyle={{
+          marginTop: 0,
+          marginBottom: 0,
+          height: undefined,
+        }}
+        backgroundColor="rgb(228, 204, 255)"
+        textStyle={{
+          padding: 10,
+          fontSize: 12,
+          color: "#FF6190",
+        }}
+      >
+        {suffix}
+      </ButtonWithCenteredText>
+    ),
+    [isLoading, submit],
+  );
 
   return (
     <SafeAreaView
       style={{
-        backgroundColor: '#70f',
-        width: '100%',
-        height: '100%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        overflow: 'hidden',
+        backgroundColor: "#F4AFC1",
+        width: "100%",
+        height: "100%",
+        flexDirection: "row",
+        justifyContent: "center",
+        overflow: "hidden",
       }}
     >
       <KeyboardDismissingView
         style={{
-          width: '100%',
-          height: '100%',
-          alignSelf: 'center',
-          flexDirection: 'column',
+          width: "100%",
+          height: "100%",
+          alignSelf: "center",
+          flexDirection: "column",
         }}
       >
         <View
           style={{
-            marginTop: 10 + (Platform.OS === 'web' ? 0 : StatusBar.currentHeight ?? 0),
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
+            marginTop:
+              10 + (Platform.OS === "web" ? 0 : (StatusBar.currentHeight ?? 0)),
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
             gap: 1,
           }}
         >
           <Logo16 size={32} rectSize={0.3} doAnimate={true} />
           <Text
             style={{
-              color: 'white',
-              alignSelf: 'center',
-              fontFamily: 'TruenoBold',
+              color: "white",
+              alignSelf: "center",
+              fontFamily: "TruenoBold",
               fontSize: 20,
             }}
             selectable={false}
           >
-            Duolicious
+            Bunk
           </Text>
         </View>
         <View
           style={{
             flex: 1,
-            alignSelf: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "center",
             gap: 10,
           }}
         >
           <DefaultText
             style={{
               width: 320,
-              textAlign: 'center',
-              color: 'white',
+              textAlign: "center",
+              color: "white",
               fontSize: 26,
-              fontFamily: 'MontserratBlack',
+              fontFamily: "MontserratBlack",
             }}
           >
-            {clubName_ ?
-              `Join ${clubName_} on Duolicious` :
-              'Cute dates & dank memes await...'}
+            {clubName_
+              ? `Join ${clubName_} on `
+              : "Cute dates & dank memes await..."}
           </DefaultText>
-          {windowHeight > 500 &&
+          {windowHeight > 500 && (
             <ActiveMembers
               numActiveMembers={numUsers ?? -1}
               minActiveMembers={0}
               color="white"
-              minText={'\xa0'}
+              minText={"\xa0"}
             />
-          }
+          )}
         </View>
-        <View style={{
-          justifyContent: 'flex-start',
-          flex: 1,
-        }}>
+        <View
+          style={{
+            justifyContent: "flex-start",
+            flex: 1,
+          }}
+        >
           <DefaultTextInput
             placeholder="Enter your email to begin"
             keyboardType="email-address"
@@ -600,25 +614,25 @@ const WelcomeScreen_ = ({navigation, route}) => {
             value={email}
             onChangeText={setEmailSafely}
             onSubmitEditing={isMobile() ? undefined : () => submit()}
-            autoFocus={Platform.OS !== 'ios'}
+            autoFocus={Platform.OS !== "ios"}
           />
           <DefaultText
             style={{
-              alignSelf: 'center',
+              alignSelf: "center",
               marginTop: 5,
               marginLeft: 20,
               marginRight: 20,
-              color: 'white',
-              opacity: loginStatus !== "" ? 1 : 0
+              color: "white",
+              opacity: loginStatus !== "" ? 1 : 0,
             }}
           >
-            {loginStatus || '\xa0'}
+            {loginStatus || "\xa0"}
           </DefaultText>
-          {windowHeight > 500 &&
+          {windowHeight > 500 && (
             <View
               style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
+                flexDirection: "row",
+                flexWrap: "wrap",
                 marginTop: 5,
                 marginLeft: 20,
                 marginRight: 20,
@@ -631,15 +645,15 @@ const WelcomeScreen_ = ({navigation, route}) => {
               <SuffixButton suffix="@hotmail.com" />
               <SuffixButton suffix="@outlook.com" />
             </View>
-          }
+          )}
         </View>
         <View
           style={{
-            justifyContent: 'center',
+            justifyContent: "center",
             paddingHorizontal: 20,
             paddingBottom: 10,
-            alignSelf: 'flex-start',
-            width: '100%',
+            alignSelf: "flex-start",
+            width: "100%",
           }}
         >
           <ButtonWithCenteredText
@@ -647,14 +661,26 @@ const WelcomeScreen_ = ({navigation, route}) => {
             secondary={true}
             loading={isLoading}
             extraChildren={
-              <View style={{ flexDirection: 'row' }}>
-                <DefaultText style={{ fontSize: 16, textAlign: 'center', fontWeight: '700' }}>
+              <View style={{ flexDirection: "row" }}>
+                <DefaultText
+                  style={{
+                    fontSize: 16,
+                    textAlign: "center",
+                    fontWeight: "700",
+                  }}
+                >
                   Sign Up
                 </DefaultText>
                 <DefaultText style={{ fontSize: 16 }}>
                   {} or {}
                 </DefaultText>
-                <DefaultText style={{ fontSize: 16, textAlign: 'center', fontWeight: '700' }}>
+                <DefaultText
+                  style={{
+                    fontSize: 16,
+                    textAlign: "center",
+                    fontWeight: "700",
+                  }}
+                >
                   Sign In
                 </DefaultText>
               </View>
@@ -662,9 +688,9 @@ const WelcomeScreen_ = ({navigation, route}) => {
           />
           <DefaultText
             style={{
-              color: 'white',
-              textAlign: 'center',
-              alignSelf: 'center',
+              color: "white",
+              textAlign: "center",
+              alignSelf: "center",
               lineHeight: 28,
             }}
           >
@@ -672,25 +698,25 @@ const WelcomeScreen_ = ({navigation, route}) => {
             <DefaultText
               disableTheme
               style={{
-                fontWeight: '600',
+                fontWeight: "600",
               }}
-              onPress={() => Linking.openURL('https://duolicious.app/terms')}
+              onPress={() => Linking.openURL("https://bunk.app/terms")}
             >
               Terms
             </DefaultText>
             {}, {}
             <DefaultText
               disableTheme
-              style={{ fontWeight: '600' }}
-              onPress={() => Linking.openURL('https://duolicious.app/privacy')}
+              style={{ fontWeight: "600" }}
+              onPress={() => Linking.openURL("https://bunk.app/privacy")}
             >
               Privacy Policy
             </DefaultText>
             {} and {}
             <DefaultText
               disableTheme
-              style={{ fontWeight: '600' }}
-              onPress={() => Linking.openURL('https://duolicious.app/guidelines')}
+              style={{ fontWeight: "600" }}
+              onPress={() => Linking.openURL("https://bunk.app/guidelines")}
             >
               Community Guidelines
             </DefaultText>
@@ -701,7 +727,4 @@ const WelcomeScreen_ = ({navigation, route}) => {
   );
 };
 
-export {
-  InviteScreen,
-  WelcomeScreen,
-};
+export { InviteScreen, WelcomeScreen };

@@ -1,13 +1,13 @@
-import { View } from 'react-native';
-import { DefaultText } from '../default-text';
-import { Logo16 } from '../logo';
-import { QAndADevice } from '../q-and-a-device';
-import { useEffect, useRef, useState, Fragment } from 'react';
-import Svg, { Polygon } from 'react-native-svg';
-import { faPen } from '@fortawesome/free-solid-svg-icons/faPen'
-import { faSeedling } from '@fortawesome/free-solid-svg-icons/faSeedling'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { View } from "react-native";
+import { DefaultText } from "../default-text";
+import { Logo16 } from "../logo";
+import { QAndADevice } from "../q-and-a-device";
+import { useEffect, useRef, useState, Fragment } from "react";
+import Svg, { Polygon } from "react-native-svg";
+import { faPen } from "@fortawesome/free-solid-svg-icons/faPen";
+import { faSeedling } from "@fortawesome/free-solid-svg-icons/faSeedling";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import Animated, {
   Easing,
   PinwheelIn,
@@ -16,22 +16,22 @@ import Animated, {
   withRepeat,
   withSequence,
   withTiming,
-} from 'react-native-reanimated';
-import { useTooltip } from '../tooltip';
-import { WithDeferredMount } from '../with-deferred-mount';
+} from "react-native-reanimated";
+import { useTooltip } from "../tooltip";
+import { WithDeferredMount } from "../with-deferred-mount";
 
 const size = 20;
 
-const durationColor = '#ff6bfa';
+const durationColor = "#ff6bfa";
 
 const Staff = ({
   label,
   tip,
-  color = '#70f',
+  color = "#FF6190",
 }: {
-  label: string,
-  tip: string,
-  color?: string,
+  label: string;
+  tip: string;
+  color?: string;
 }) => {
   const { viewRef, props } = useTooltip(tip);
 
@@ -39,21 +39,21 @@ const Staff = ({
     <View
       ref={viewRef}
       style={{
-          backgroundColor: color,
-          borderRadius: 999,
-          paddingLeft: 7,
-          paddingRight: 8,
-          height: size,
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
-          gap: 2,
+        backgroundColor: color,
+        borderRadius: 999,
+        paddingLeft: 7,
+        paddingRight: 8,
+        height: size,
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+        gap: 2,
       }}
       {...props}
     >
       <Ionicons
         style={{
-          fontSize: size / 3 * 2,
+          fontSize: (size / 3) * 2,
         }}
         color="white"
         name="shield-checkmark"
@@ -61,7 +61,7 @@ const Staff = ({
       <DefaultText
         style={{
           fontSize: 12,
-          color: 'white',
+          color: "white",
           fontWeight: 700,
         }}
       >
@@ -71,11 +71,11 @@ const Staff = ({
   );
 };
 
-const Admin = () => <Staff label="admin" tip="Duolicious administrator" />;
+const Admin = () => <Staff label="admin" tip="Bunk administrator" />;
 
-const Bot = () => <Staff label="bot" tip="Duolicious bot" />;
+const Bot = () => <Staff label="bot" tip="Bunk bot" />;
 
-const Mod = () => <Staff label="mod" tip="Duolicious moderator" color="black" />;
+const Mod = () => <Staff label="mod" tip="Bunk moderator" color="black" />;
 
 const Gold = ({
   style = {},
@@ -86,16 +86,16 @@ const Gold = ({
 }) => {
   const tooltip = useTooltip(`Has Gold membership`);
 
-  const { viewRef = null, props = { } } = enableTooltip ? tooltip : { };
+  const { viewRef = null, props = {} } = enableTooltip ? tooltip : {};
 
   return (
     <View
       ref={viewRef}
       style={{
-        backgroundColor: '#70f',
+        backgroundColor: "#FF6190",
         borderRadius: 999,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
         width: size,
         height: size,
         ...style,
@@ -116,11 +116,11 @@ const Gold = ({
 };
 
 const QAndA = ({
-  intervalMs = 400,  // time between each step
-  step = 50,         // increment amount
+  intervalMs = 400, // time between each step
+  step = 50, // increment amount
   startAt = 0,
   target = 100,
-  pauseMs = 3000,    // pause at target before looping
+  pauseMs = 3000, // pause at target before looping
   color1 = "#004467",
   color2 = "#45ddc0",
   numLoops = Infinity,
@@ -188,8 +188,8 @@ const QAndA = ({
         height: size,
         width: size,
         borderRadius: 999,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
       }}
       {...props}
     >
@@ -206,9 +206,9 @@ const QAndA = ({
           backgroundColor: color2,
           color: color1,
           borderRadius: 999,
-          width: '100%',
+          width: "100%",
           fontWeight: 700,
-          textAlign: 'center',
+          textAlign: "center",
         }}
       >
         {count}
@@ -217,14 +217,15 @@ const QAndA = ({
   );
 };
 
-const QAndA200  = () =>
-  <QAndA numLoops={3} target={200}  step={100} />
+const QAndA200 = () => <QAndA numLoops={3} target={200} step={100} />;
 
-const QAndA500  = () =>
-  <QAndA numLoops={3} target={500}  step={250} color2="orange" />
+const QAndA500 = () => (
+  <QAndA numLoops={3} target={500} step={250} color2="orange" />
+);
 
-const QAndA1000 = () =>
+const QAndA1000 = () => (
   <QAndA numLoops={3} target={1000} step={500} color2="black" color1="white" />
+);
 
 const OneWeek = () => {
   const { viewRef, props } = useTooltip(`Member for a week`);
@@ -235,20 +236,19 @@ const OneWeek = () => {
       style={{
         width: 0,
         height: 0,
-        backgroundColor: 'transparent',
-        borderStyle: 'solid',
+        backgroundColor: "transparent",
+        borderStyle: "solid",
         borderLeftWidth: size / 2,
         borderRightWidth: size / 2,
         borderBottomWidth: size,
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
+        borderLeftColor: "transparent",
+        borderRightColor: "transparent",
         borderBottomColor: durationColor,
       }}
       {...props}
     />
   );
 };
-
 
 const OneMonth = () => {
   const { viewRef, props } = useTooltip(`Member for a month`);
@@ -261,9 +261,9 @@ const OneMonth = () => {
       style={{
         width: size,
         height: size,
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'visible',
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "visible",
       }}
       {...props}
     >
@@ -272,23 +272,21 @@ const OneMonth = () => {
           width: inner,
           height: inner,
           backgroundColor: durationColor,
-          transform: [{ rotate: '45deg' }],
+          transform: [{ rotate: "45deg" }],
         }}
       />
     </View>
   );
-}
+};
 
-const OneYear = ({
-  orientation = 'pointy',
-}) => {
+const OneYear = ({ orientation = "pointy" }) => {
   const { viewRef, props } = useTooltip(`Member for a year`);
 
   const SQRT3 = Math.sqrt(3);
 
   // Flat-top hex viewBox is 2 : √3; Pointy-top is √3 : 2
   let viewBox, points;
-  if (orientation === 'pointy') {
+  if (orientation === "pointy") {
     // width = √3, height = 2
     viewBox = `0 0 ${SQRT3} 2`;
     points = [
@@ -300,7 +298,7 @@ const OneYear = ({
       [0, 0.5],
     ]
       .map(([x, y]) => `${x},${y}`)
-      .join(' ');
+      .join(" ");
   } else {
     // flat-top (default): width = 2, height = √3
     viewBox = `0 0 2 ${SQRT3}`;
@@ -313,7 +311,7 @@ const OneYear = ({
       [0, SQRT3 / 2],
     ]
       .map(([x, y]) => `${x},${y}`)
-      .join(' ');
+      .join(" ");
   }
 
   return (
@@ -322,8 +320,8 @@ const OneYear = ({
       style={{
         height: size,
         width: size,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
       }}
       {...props}
     >
@@ -350,16 +348,16 @@ const BaseLongBio = ({ numLoops = Infinity }) => {
 
   // A tiny “writing” path (all points are within 0..max)
   const path = [
-    { x: 0, rot:   0 },
+    { x: 0, rot: 0 },
     { x: 0, rot: -10 },
     { x: 2, rot: -10 },
     { x: 0, rot: -10 },
     { x: 2, rot: -10 },
     { x: 0, rot: -10 },
     { x: 2, rot: -10 },
-    { x: 0, rot:   0 },
+    { x: 0, rot: 0 },
     // Adds a delay before looping
-    ...new Array(10).fill({ x: 0, rot: 0 })
+    ...new Array(10).fill({ x: 0, rot: 0 }),
   ];
 
   useEffect(() => {
@@ -368,9 +366,12 @@ const BaseLongBio = ({ numLoops = Infinity }) => {
     // Move along the path, then repeat
     x.value = withRepeat(
       withSequence(
-        ...path.map(p =>
-          withTiming(p.x, { duration: stepDuration, easing: Easing.inOut(Easing.quad) })
-        )
+        ...path.map((p) =>
+          withTiming(p.x, {
+            duration: stepDuration,
+            easing: Easing.inOut(Easing.quad),
+          }),
+        ),
       ),
       reps,
       true,
@@ -379,9 +380,12 @@ const BaseLongBio = ({ numLoops = Infinity }) => {
     // Subtle “write” tilt: tip forward, back past center a bit, then settle
     rot.value = withRepeat(
       withSequence(
-        ...path.map(p =>
-          withTiming(p.rot, { duration: stepDuration, easing: Easing.inOut(Easing.quad) })
-        )
+        ...path.map((p) =>
+          withTiming(p.rot, {
+            duration: stepDuration,
+            easing: Easing.inOut(Easing.quad),
+          }),
+        ),
       ),
       reps,
       true,
@@ -389,19 +393,16 @@ const BaseLongBio = ({ numLoops = Infinity }) => {
   }, [x, rot, path, stepDuration, numLoops]);
 
   const penStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: x.value },
-      { rotateZ: `${rot.value}deg` },
-    ],
+    transform: [{ translateX: x.value }, { rotateZ: `${rot.value}deg` }],
   }));
 
   return (
     <View
       ref={viewRef}
       style={{
-        overflow: 'hidden',
-        alignItems: 'center',
-        justifyContent: 'center',
+        overflow: "hidden",
+        alignItems: "center",
+        justifyContent: "center",
         width: size,
         height: size,
       }}
@@ -410,21 +411,21 @@ const BaseLongBio = ({ numLoops = Infinity }) => {
       <Animated.View
         style={[
           {
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
+            position: "absolute",
+            alignItems: "center",
+            justifyContent: "center",
             left: 0,
             top: 0,
             bottom: 0,
             right: 0,
           },
-          penStyle
+          penStyle,
         ]}
       >
         <FontAwesomeIcon
           icon={faPen}
           size={iconSize}
-          style={{ color: '#373990' }}
+          style={{ color: "#373990" }}
         />
       </Animated.View>
     </View>
@@ -434,24 +435,22 @@ const BaseLongBio = ({ numLoops = Infinity }) => {
 const LongBio = () => <BaseLongBio numLoops={3} />;
 
 const EarlyAdopter = () => {
-  const { viewRef, props } = useTooltip(
-    `Joined Duolicious in its first year`
-  );
+  const { viewRef, props } = useTooltip(`Joined Bunk in its first year`);
 
   return (
     <View
       ref={viewRef}
       style={{
         height: size,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
       }}
       {...props}
     >
       <FontAwesomeIcon
         icon={faSeedling}
         size={14}
-        style={{color: '#3ba55d'}}
+        style={{ color: "#3ba55d" }}
       />
     </View>
   );
@@ -466,10 +465,10 @@ const VoiceBio = () => {
       style={{
         height: size,
         width: size,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
         borderRadius: 999,
-        backgroundColor: '#d10000',
+        backgroundColor: "#d10000",
       }}
       {...props}
     >
@@ -477,7 +476,7 @@ const VoiceBio = () => {
         disabled={true}
         style={{
           fontSize: size - 6,
-          color: 'white',
+          color: "white",
           marginRight: -2,
         }}
         name="play"
@@ -497,10 +496,10 @@ const Gif = () => {
           style={{
             height: size,
             width: size,
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: "center",
+            justifyContent: "center",
             borderRadius: 2,
-            backgroundColor: '#28afff',
+            backgroundColor: "#28afff",
           }}
           entering={PinwheelIn}
           {...props}
@@ -509,8 +508,8 @@ const Gif = () => {
             style={{
               fontSize: 9,
               fontWeight: 600,
-              textAlign: 'center',
-              color: '#dff2ff',
+              textAlign: "center",
+              color: "#dff2ff",
             }}
           >
             GIF
@@ -521,43 +520,36 @@ const Gif = () => {
   );
 };
 
-const Flair = ({
-  flair
-}: {
-  flair: string[]
-}) => {
+const Flair = ({ flair }: { flair: string[] }) => {
   return (
     <View
       style={{
-        flexDirection: 'row',
+        flexDirection: "row",
         gap: 3,
-        flexWrap: 'wrap',
+        flexWrap: "wrap",
         minHeight: size,
       }}
     >
-      {flair.map((f) =>
+      {flair.map((f) => (
         <Fragment key={f}>
-          {f === 'admin'         && <Admin />}
-          {f === 'mod'           && <Mod />}
-          {f === 'bot'           && <Bot />}
-          {f === 'gold'          && <Gold />}
-          {f === 'q-and-a-200'   && <QAndA200 />}
-          {f === 'q-and-a-500'   && <QAndA500 />}
-          {f === 'q-and-a-1000'  && <QAndA1000 />}
-          {f === 'one-week'      && <OneWeek />}
-          {f === 'one-month'     && <OneMonth />}
-          {f === 'one-year'      && <OneYear />}
-          {f === 'long-bio'      && <LongBio />}
-          {f === 'early-adopter' && <EarlyAdopter />}
-          {f === 'voice-bio'     && <VoiceBio />}
-          {f === 'gif'           && <Gif />}
+          {f === "admin" && <Admin />}
+          {f === "mod" && <Mod />}
+          {f === "bot" && <Bot />}
+          {f === "gold" && <Gold />}
+          {f === "q-and-a-200" && <QAndA200 />}
+          {f === "q-and-a-500" && <QAndA500 />}
+          {f === "q-and-a-1000" && <QAndA1000 />}
+          {f === "one-week" && <OneWeek />}
+          {f === "one-month" && <OneMonth />}
+          {f === "one-year" && <OneYear />}
+          {f === "long-bio" && <LongBio />}
+          {f === "early-adopter" && <EarlyAdopter />}
+          {f === "voice-bio" && <VoiceBio />}
+          {f === "gif" && <Gif />}
         </Fragment>
-      )}
+      ))}
     </View>
   );
 };
 
-export {
-  Flair,
-  Gold,
-};
+export { Flair, Gold };
