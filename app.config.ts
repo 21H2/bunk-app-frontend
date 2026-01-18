@@ -20,7 +20,7 @@ const config: ExpoConfig = {
   },
   extra: {
     eas: {
-      projectId: "a756e088-c07a-4034-b9c5-51f50139ac21",
+      projectId: "e0ddbcdb-d03e-4a69-ab21-ca010b6363e7",
     },
     apiUrl: process.env.DUO_API_URL,
     chatUrl: process.env.DUO_CHAT_URL,

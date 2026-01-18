@@ -457,7 +457,7 @@ const FinishOnboardingDescription = () => (
       You’re ready to go! But before we unleash you on the other members, let’s
       recap our <DefaultText
         disableTheme
-        onPress={() => Linking.openURL('https://duolicious.app/guidelines/')}
+        onPress={() => Linking.openURL('https://bunk-app.in/guidelines/')}
         style={{ fontWeight: '700' }}
       >
         Community Guidelines

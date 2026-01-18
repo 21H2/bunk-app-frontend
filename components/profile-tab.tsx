@@ -592,7 +592,7 @@ const Options = ({ navigation, data }) => {
       return;
     }
 
-    await Linking.openURL(`https://bunk.app/export-data/?token=${token}`);
+    await Linking.openURL(`https://bunk-app.in/export-data/?token=${token}`);
 
     setDataExportStatus("ok");
   }, []);

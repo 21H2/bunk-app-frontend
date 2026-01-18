@@ -700,7 +700,7 @@ const WelcomeScreen_ = ({ navigation, route }) => {
               style={{
                 fontWeight: "600",
               }}
-              onPress={() => Linking.openURL("https://bunk.app/terms")}
+              onPress={() => Linking.openURL("https://bunk-app.in/terms")}
             >
               Terms
             </DefaultText>
@@ -708,7 +708,7 @@ const WelcomeScreen_ = ({ navigation, route }) => {
             <DefaultText
               disableTheme
               style={{ fontWeight: "600" }}
-              onPress={() => Linking.openURL("https://bunk.app/privacy")}
+              onPress={() => Linking.openURL("https://bunk-app.in/privacy")}
             >
               Privacy Policy
             </DefaultText>
@@ -716,7 +716,7 @@ const WelcomeScreen_ = ({ navigation, route }) => {
             <DefaultText
               disableTheme
               style={{ fontWeight: "600" }}
-              onPress={() => Linking.openURL("https://bunk.app/guidelines")}
+              onPress={() => Linking.openURL("https://bunk-app.in/guidelines")}
             >
               Community Guidelines
             </DefaultText>

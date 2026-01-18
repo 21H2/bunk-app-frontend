@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "443037492722",
-    "project_id": "duolicious",
-    "storage_bucket": "duolicious.appspot.com"
+    "project_number": "800375778891",
+    "project_id": "bunk-lab",
+    "storage_bucket": "bunk-lab.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:443037492722:android:33f137fb360884ba5ab76b",
+        "mobilesdk_app_id": "1:800375778891:android:6438dac0222f4c37de27ce",
         "android_client_info": {
-          "package_name": "app.duolicious"
+          "package_name": "app.bunk"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCc2FCgy-SIF1K07MOhkPqC7VAeSeOQsK0"
+          "current_key": "AIzaSyA1lZ2BKj9n6bsU-CnfAvOZjMecUPS-aig"
         }
       ],
       "services": {

@@ -249,7 +249,7 @@ const MessageStatusComponent = ({
     blocked: name + " is unavailable right now. Try messaging someone else!",
     "not unique": `Someone already sent that intro! Try sending ${name} a different message.`,
     "too long": "That message is too big! 😩",
-    "server-error": "Our server went boom. Please contact support@bunk-app.app",
+    "server-error": "Our server went boom. Please contact support@bunk-app.in",
   };
 
   const messageText = messageTexts[messageStatus];

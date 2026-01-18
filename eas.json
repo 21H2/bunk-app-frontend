@@ -18,6 +18,15 @@
       },
       "ios": {
         "resourceClass": "m1-medium"
+      },
+      "env": {
+        "DUO_API_URL": "https://api.bunk-app.in",
+        "DUO_CHAT_URL": "wss://chat.bunk-app.in",
+        "DUO_IMAGES_URL": "https://user-images.bunk-app.in",
+        "DUO_AUDIO_URL": "https://user-audio.bunk-app.in",
+        "DUO_STATUS_URL": "https://status.bunk-app.in",
+        "DUO_INVITE_URL": "https://bunk-app.in",
+        "DUO_PARTNER_URL": "https://partner.bunk-app.in"
       }
     },
     "production": {
@@ -26,7 +35,7 @@
         "resourceClass": "m1-medium"
       },
       "android": {
-        "credentialsSource": "local"
+        "credentialsSource": "remote"
       }
     },
     "ios-simulator": {
