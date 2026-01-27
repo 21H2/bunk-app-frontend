@@ -67,6 +67,6 @@ jobs:
       - uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: a73a8f703a9a1eefac56f84ca6a4c9ac
+          accountId: d814a060af8cb02d9e65a14c06ed4322
           projectName: bunk-app-frontend
           directory: dist
