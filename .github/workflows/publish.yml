@@ -68,5 +68,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: a73a8f703a9a1eefac56f84ca6a4c9ac
-          projectName: bunk
+          projectName: bunk-app-frontend
           directory: dist
