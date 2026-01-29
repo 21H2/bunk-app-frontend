@@ -43,6 +43,12 @@
       "ios": {
         "simulator": true
       }
+    },
+    "ios-ipa": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      }
     }
   },
   "submit": {
