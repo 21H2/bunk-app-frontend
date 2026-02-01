@@ -18,7 +18,6 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
-const { setInterval } = require('timers');
 
 // Configuration
 const PORT = process.env.PORT || 3001;
