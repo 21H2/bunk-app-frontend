@@ -9,12 +9,12 @@ describe('Batching Mechanism and Reference Counting', () => {
   let subscribe;
   let send;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // Reset modules and import a fresh instance
     jest.resetModules();
-    const online = require('./online');
+    const online = await import('./online');
     subscribe = online.subscribe;
-    send = require('../../websocket-layer').send;
+    ({ send } = await import('../../websocket-layer'));
     jest.clearAllTimers();
   });
 
